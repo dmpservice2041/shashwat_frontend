@@ -1,0 +1,54 @@
+.layoutContainer {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.mainWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    transition: margin-left var(--transition-normal);
+    width: 100%;
+}
+
+.sidebarOpen {
+    margin-left: 280px;
+}
+
+.sidebarClosed {
+    margin-left: 80px;
+}
+
+@media (max-width: 1024px) {
+
+    .sidebarOpen,
+    .sidebarClosed {
+        margin-left: 0;
+    }
+}
+
+.mainContent {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.contentInner {
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 4rem - 64px);
+    /* Viewport - padding - header */
+}
+
+@media (max-width: 768px) {
+    .mainContent {
+        padding: 1rem;
+    }
+}

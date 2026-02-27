@@ -1,0 +1,195 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: var(--surface-color);
+    border-right: 1px solid var(--neutral-200);
+    transition: width var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    box-shadow: var(--shadow-sm);
+}
+
+.open {
+    width: 280px;
+}
+
+.closed {
+    width: 80px;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+        width: 280px;
+    }
+}
+
+/* Brand Section */
+.brandHeader {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    border-bottom: 1px solid var(--neutral-200);
+    gap: 0.75rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.iconWrapper {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--primary-500), #8b5cf6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+}
+
+.brandTitle {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--neutral-900);
+    margin: 0;
+}
+
+/* Navigation List */
+.navContainer {
+    flex: 1;
+    padding: 1.5rem 0.75rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar for nav */
+.navContainer::-webkit-scrollbar {
+    width: 4px;
+}
+
+.navContainer::-webkit-scrollbar-thumb {
+    background: var(--neutral-200);
+    border-radius: 4px;
+}
+
+.navList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.navItem {
+    list-style: none;
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    color: var(--neutral-500);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.navLink:hover {
+    background-color: var(--neutral-50);
+    color: var(--neutral-900);
+}
+
+.navLink.active {
+    background-color: var(--primary-50);
+    color: var(--primary-600);
+}
+
+.navIcon {
+    flex-shrink: 0;
+    transition: color var(--transition-fast);
+}
+
+.navLink.active .navIcon {
+    color: var(--primary-600);
+}
+
+.navLabel {
+    font-size: 0.95rem;
+    opacity: 1;
+    transition: opacity var(--transition-fast);
+}
+
+.closed .navLabel {
+    opacity: 0;
+    display: none;
+}
+
+.closed .navLink {
+    justify-content: center;
+}
+
+/* Footer Section */
+.sidebarFooter {
+    padding: 1.25rem 0.75rem;
+    border-top: 1px solid var(--neutral-200);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.logoutButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    color: var(--neutral-500);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.logoutButton:hover {
+    background-color: #fee2e2;
+    color: var(--danger);
+}
+
+.closed .logoutButton {
+    justify-content: center;
+}
+
+.logoutIcon {
+    flex-shrink: 0;
+}
+
+.logoutLabel {
+    font-size: 0.95rem;
+}
+
+.collapseToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    color: var(--neutral-400);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    margin-top: 0.5rem;
+}
+
+.collapseToggle:hover {
+    background-color: var(--neutral-100);
+    color: var(--neutral-600);
+}
