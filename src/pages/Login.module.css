@@ -171,10 +171,7 @@
     transition: all var(--transition-normal);
 }
 
-.inputWrapper:focus-within {
-    border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px var(--primary-100);
-}
+
 
 .inputIcon {
     position: absolute;
@@ -195,6 +192,10 @@
     border: none;
     outline: none;
     color: var(--neutral-900);
+}
+
+.inputField:focus{
+    outline: none;
 }
 
 .inputField::placeholder {
