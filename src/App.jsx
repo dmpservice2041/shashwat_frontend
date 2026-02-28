@@ -25,17 +25,14 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route element={<ProtectedRoute />}>
-            {/* Dashboard */}
             <Route path="/dashboard" element={<Dashboard />} />
 
-            {/* Master Modules */}
             <Route path="/hospitals" element={<Hospitals />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/suppliers" element={<Suppliers />} />
             <Route path="/products" element={<Products />} />
 
-            {/* Transactional Modules */}
             <Route path="/purchase" element={<Purchase />} />
             <Route path="/quotation" element={<Quotation />} />
             <Route path="/challan" element={<Challan />} />
@@ -43,7 +40,6 @@ function App() {
             <Route path="/invoice" element={<Invoice />} />
             <Route path="/payment" element={<Payment />} />
 
-            {/* Reports & Settings */}
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
           </Route>

@@ -8,14 +8,13 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check for token and load user profile
         const initAuth = async () => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
                     const res = await api.get('/auth/me');
-                    if (res.success) {
-                        setUser(res.data.user);
+                    if (res.success || res.status === 'success') {
+                        setUser(res.data?.user || res.data || res.user);
                     } else {
                         localStorage.removeItem('token');
                     }
@@ -32,9 +31,11 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         const res = await api.post('/auth/login', { email, password });
-        if (res.success) {
-            localStorage.setItem('token', res.data.token);
-            setUser(res.data.user);
+        console.log('Login API Response:', res);
+
+        if (res.success || res.status === 'success' || res.token) {
+            localStorage.setItem('token', res.data?.token || res.token);
+            setUser(res.data?.user || res.data || res.user);
             return { success: true };
         }
         return { success: false, message: res.message || 'Login failed' };

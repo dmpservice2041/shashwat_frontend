@@ -54,7 +54,7 @@
     font-size: 0.95rem;
 }
 
-/* Button override */
+
 :global(.btn-primary) {
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@
     box-shadow: var(--shadow-md);
 }
 
-/* Table Section */
+
 .tableContainer {
     padding: 0;
     border-radius: var(--radius-lg);
@@ -120,7 +120,7 @@
     background: white;
 }
 
-/* Table */
+
 .tableWrapper {
     width: 100%;
     overflow-x: auto;
@@ -176,7 +176,7 @@
     text-align: right;
 }
 
-/* Status Badge */
+
 .statusBadge {
     display: inline-flex;
     align-items: center;
@@ -196,7 +196,7 @@
     color: var(--neutral-600);
 }
 
-/* Actions */
+
 .actionsCell {
     text-align: right;
     display: flex;
@@ -221,7 +221,7 @@
     color: var(--danger);
 }
 
-/* Empty States */
+
 .emptyState,
 .loadingCell {
     text-align: center;

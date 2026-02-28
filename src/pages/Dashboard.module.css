@@ -22,7 +22,7 @@
     font-size: 1rem;
 }
 
-/* Stats Grid */
+
 .statsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -93,7 +93,7 @@
     color: var(--danger);
 }
 
-/* trend */
+
 .statFooter {
     display: flex;
     align-items: center;
@@ -115,7 +115,7 @@
     color: var(--neutral-400);
 }
 
-/* Activity */
+
 .dashboardContent {
     display: grid;
     grid-template-columns: 2fr 1fr;
