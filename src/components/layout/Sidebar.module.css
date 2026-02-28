@@ -31,7 +31,7 @@
     }
 }
 
-/* Brand Section */
+
 .brandHeader {
     height: 64px;
     display: flex;
@@ -63,7 +63,7 @@
     margin: 0;
 }
 
-/* Navigation List */
+
 .navContainer {
     flex: 1;
     padding: 1.5rem 0.75rem;
@@ -71,7 +71,7 @@
     overflow-x: hidden;
 }
 
-/* Custom Scrollbar for nav */
+
 .navContainer::-webkit-scrollbar {
     width: 4px;
 }
@@ -138,7 +138,7 @@
     justify-content: center;
 }
 
-/* Footer Section */
+
 .sidebarFooter {
     padding: 1.25rem 0.75rem;
     border-top: 1px solid var(--neutral-200);

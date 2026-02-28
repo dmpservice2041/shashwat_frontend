@@ -34,7 +34,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
     return (
         <aside className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
-            {/* Brand Header */}
             <div className={styles.brandHeader}>
                 <div className={styles.iconWrapper}>
                     <ShieldCheck size={28} className={styles.logoIcon} />
@@ -46,7 +45,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 )}
             </div>
 
-            {/* Navigation Links */}
             <div className={styles.navContainer}>
                 <ul className={styles.navList}>
                     {navItems.map((item) => (
@@ -66,7 +64,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 </ul>
             </div>
 
-            {/* Footer Section */}
             <div className={styles.sidebarFooter}>
                 <button className={styles.logoutButton} onClick={logout} title={!isOpen ? 'Logout' : undefined}>
                     <LogOut size={22} className={styles.logoutIcon} />

@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-/* Background animated shapes */
+
 .backgroundShapes {
     position: absolute;
     top: 0;
@@ -43,7 +43,7 @@
     width: 600px;
     height: 600px;
     background: #ede9fe;
-    /* subtle purple */
+    
     animation-delay: -5s;
 }
 
@@ -53,7 +53,7 @@
     width: 300px;
     height: 300px;
     background: #bfdbfe;
-    /* subtle blue */
+    
     animation-delay: -10s;
 }
 
@@ -71,7 +71,7 @@
     }
 }
 
-/* Card */
+
 .loginCard {
     position: relative;
     z-index: 10;
@@ -91,7 +91,7 @@
     }
 }
 
-/* Logo & Branding */
+
 .logoSection {
     display: flex;
     flex-direction: column;
@@ -125,7 +125,7 @@
     color: var(--neutral-500);
 }
 
-/* Form Styles */
+
 .loginForm {
     display: flex;
     flex-direction: column;
@@ -201,7 +201,7 @@
     color: var(--neutral-300);
 }
 
-/* Submit Button */
+
 .loginButton {
     margin-top: 0.5rem;
     display: flex;

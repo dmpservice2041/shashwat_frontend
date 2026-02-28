@@ -1,16 +1,34 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import styles from './Login.module.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { login } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        navigate('/dashboard');
+        setError('');
+        setLoading(true);
+
+        try {
+            const res = await login(email, password);
+            if (res.success) {
+                navigate('/dashboard');
+            } else {
+                setError(res.message || 'Failed to login');
+            }
+        } catch (err) {
+            setError('An error occurred during login');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -31,6 +49,7 @@ const Login = () => {
                 </div>
 
                 <form onSubmit={handleLogin} className={styles.loginForm}>
+                    {error && <div className={styles.errorMessage} style={{ color: 'red', marginBottom: '1rem', textAlign: 'center', backgroundColor: '#ffe6e6', padding: '10px', borderRadius: '5px' }}>{error}</div>}
                     <div className={styles.inputGroup}>
                         <label className={styles.inputLabel} htmlFor="email">Email Address</label>
                         <div className={styles.inputWrapper}>
@@ -50,7 +69,7 @@ const Login = () => {
                     <div className={styles.inputGroup}>
                         <div className={styles.labelRow}>
                             <label className={styles.inputLabel} htmlFor="password">Password</label>
-                            <a href="#" className={styles.forgotPassword}>Forgot?</a>
+                            <a href="#" className={styles.forgotPassword}>Forgot Password?</a>
                         </div>
                         <div className={styles.inputWrapper}>
                             <Lock className={styles.inputIcon} size={20} />
@@ -66,9 +85,9 @@ const Login = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className={styles.loginButton}>
-                        <span>Sign In</span>
-                        <ArrowRight size={20} className={styles.buttonIcon} />
+                    <button type="submit" className={styles.loginButton} disabled={loading}>
+                        <span>{loading ? 'Signing in...' : 'Sign In'}</span>
+                        {!loading && <ArrowRight size={20} className={styles.buttonIcon} />}
                     </button>
                 </form>
             </div>
