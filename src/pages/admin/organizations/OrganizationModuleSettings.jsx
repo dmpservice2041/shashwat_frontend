@@ -82,7 +82,7 @@ const OrganizationModuleSettings = () => {
     }
 
     return (
-        <div style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ padding: '24px 24px 80px 24px', maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <button
                     onClick={() => navigate(`/admin/organizations/${id}`)}

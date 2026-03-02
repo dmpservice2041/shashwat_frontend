@@ -17,6 +17,7 @@ import {
     BarChart3,
     CreditCard,
     ClipboardList,
+    Gauge,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { hasPermission } from '../../utils/permissions';
@@ -43,10 +44,10 @@ const NAV_GROUPS = [
     {
         group: 'Operations',
         items: [
-            { path: '/purchase', label: 'Purchase Entry', icon: ShoppingCart, permission: 'purchase:view', module: MODULE_KEYS.PURCHASE },
+            { path: '/purchase', label: 'Purchase Entry', icon: ShoppingCart, permission: 'purchases:view', module: MODULE_KEYS.PURCHASE },
             { path: '/quotation', label: 'Quotations', icon: FileText, permission: 'quotations:view', module: MODULE_KEYS.QUOTATIONS },
             { path: '/challan', label: 'Challan', icon: ClipboardList, permission: 'challans:view', module: MODULE_KEYS.CHALLANS },
-            { path: '/usage', label: 'Usage', icon: Activity, permission: 'usage:view', module: MODULE_KEYS.USAGE },
+            { path: '/usage', label: 'Usage', icon: Gauge, permission: 'usages:view', module: MODULE_KEYS.USAGE },
             { path: '/invoice', label: 'Invoice', icon: FileText, permission: 'invoices:view', module: MODULE_KEYS.INVOICES },
             { path: '/payment', label: 'Payment', icon: CreditCard, permission: 'payments:view', module: MODULE_KEYS.PAYMENTS },
         ]

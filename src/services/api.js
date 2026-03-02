@@ -35,6 +35,7 @@ api.interceptors.response.use(
 
         if (status === 403) {
             showToast('Access denied. You do not have permission to perform this action.');
+            window.dispatchEvent(new Event('auth:forbidden'));
         }
 
         const serverData = error.response?.data || {};

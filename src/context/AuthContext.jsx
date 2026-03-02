@@ -42,8 +42,8 @@ export const AuthProvider = ({ children }) => {
                                 organization_type: decoded.organization_type || decoded.org_type || null,
                                 active_organization_id: decoded.active_organization_id || decoded.organization_id || null,
                                 roles: decoded.roles || [],
-                                permissions: normalizePermissions(apiPermissions || decoded.permissions || userData.permissions),
-                                enabled_modules: apiEnabledModules || decoded.enabled_modules || userData.enabled_modules || userData.settings?.enabled_modules || []
+                                permissions: normalizePermissions(apiPermissions || userData.permissions),
+                                enabled_modules: apiEnabledModules || userData.enabled_modules || userData.settings?.enabled_modules || []
                             };
                         } catch (e) {
                             console.error('Failed to parse token payload', e);
@@ -66,6 +66,40 @@ export const AuthProvider = ({ children }) => {
         };
 
         initAuth();
+    }, []);
+
+    useEffect(() => {
+        const handleForbidden = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const res = await api.get('/auth/me');
+                    if (res.success || res.status === 'success') {
+                        let userData = res.data?.user || res.data || res.user;
+                        try {
+                            const decoded = jwtDecode(token);
+                            const apiEnabledModules = res.data?.active_organization?.enabled_modules || res.active_organization?.enabled_modules;
+                            const apiPermissions = res.data?.permissions || res.permissions;
+                            userData = {
+                                ...userData,
+                                organization_type: decoded.organization_type || decoded.org_type || null,
+                                active_organization_id: decoded.active_organization_id || decoded.organization_id || null,
+                                roles: decoded.roles || [],
+                                permissions: normalizePermissions(apiPermissions || userData.permissions),
+                                enabled_modules: apiEnabledModules || userData.enabled_modules || userData.settings?.enabled_modules || []
+                            };
+                            setUser(userData);
+                        } catch (e) {
+                            console.error('Failed to parse token payload in refresh', e);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Force refresh failed", error);
+                }
+            }
+        };
+        window.addEventListener('auth:forbidden', handleForbidden);
+        return () => window.removeEventListener('auth:forbidden', handleForbidden);
     }, []);
 
     const login = async (email, password) => {

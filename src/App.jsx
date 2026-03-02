@@ -58,24 +58,24 @@ function App() {
             <Route element={<ProtectedRoute module="products" requiredPermission="products:view" />}>
               <Route path="/products" element={<Products />} />
             </Route>
-            <Route element={<ProtectedRoute module="purchase" requiredPermission="purchase:view" />}>
+            <Route element={<ProtectedRoute module="purchases" requiredPermission="purchases:view" />}>
               <Route path="/purchase" element={<Purchase />} />
             </Route>
 
             {/* Operations */}
-            <Route element={<ProtectedRoute module="quotation" requiredPermission="quotation:view" />}>
+            <Route element={<ProtectedRoute module="quotations" requiredPermission="quotations:view" />}>
               <Route path="/quotation" element={<Quotation />} />
             </Route>
-            <Route element={<ProtectedRoute module="challan" requiredPermission="challan:view" />}>
+            <Route element={<ProtectedRoute module="challans" requiredPermission="challans:view" />}>
               <Route path="/challan" element={<Challan />} />
             </Route>
-            <Route element={<ProtectedRoute module="usage" requiredPermission="usage:view" />}>
+            <Route element={<ProtectedRoute module="usages" requiredPermission="usages:view" />}>
               <Route path="/usage" element={<Usage />} />
             </Route>
-            <Route element={<ProtectedRoute module="invoice" requiredPermission="invoice:view" />}>
+            <Route element={<ProtectedRoute module="invoices" requiredPermission="invoices:view" />}>
               <Route path="/invoice" element={<Invoice />} />
             </Route>
-            <Route element={<ProtectedRoute module="payment" requiredPermission="payment:view" />}>
+            <Route element={<ProtectedRoute module="payments" requiredPermission="payments:view" />}>
               <Route path="/payment" element={<Payment />} />
             </Route>
 
