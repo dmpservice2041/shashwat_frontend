@@ -3,8 +3,10 @@ import { X, Save, Loader2, ShieldCheck, AlertTriangle, RefreshCw } from 'lucide-
 import api from '../../../services/api';
 import PermissionMatrix from './PermissionMatrix';
 import { isHighPrivilegeRole } from '../../../utils/permissions';
+import { useAuth } from '../../../context/AuthContext';
 
 const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
+    const { user } = useAuth();
     const [roleName, setRoleName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -242,7 +244,7 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
                                 onChange={setSelectedKeys}
                                 readOnly={false}
                                 catalogue={catalogue}
-                                enabledModules={useAuth().user?.enabled_modules}
+                                enabledModules={user?.enabled_modules}
                             />
                         </div>
                     </form>
