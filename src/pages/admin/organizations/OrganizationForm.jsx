@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Save, User, Mail, Phone, Lock, KeyRound, Building2, Globe, CheckSquare, Square, Loader2 } from 'lucide-react';
+import { Save, User, Mail, Phone, Lock, KeyRound, Building2, Globe, CheckSquare, Square, Loader2 ,X} from 'lucide-react';
 import api from '../../../services/api';
 import { PERMISSION_MODULES } from '../../../utils/permissions';
 import { MODULE_KEYS } from '../../../constants/permissionModules';
@@ -119,7 +119,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
             <div style={{ background: 'white', borderRadius: '8px', width: '100%', maxWidth: '600px', maxHeight: '90vh', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
                 <div style={{ padding: '16px 20px', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
                     <h2 style={{ fontSize: '18px', fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Building size={20} style={{ color: 'var(--primary-600)' }} />
+                        <Building2 size={20} style={{ color: 'var(--primary-600)' }} />
                         {initialData ? 'Edit Organization' : 'Create Organization with Admin'}
                     </h2>
                     <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
