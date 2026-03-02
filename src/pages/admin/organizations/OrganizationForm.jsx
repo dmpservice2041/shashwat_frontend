@@ -24,11 +24,15 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
     useEffect(() => {
         if (initialData) {
+            const loadedModules = initialData.OrganizationModules
+                ? initialData.OrganizationModules.filter(m => m.is_enabled).map(m => m.module_name)
+                : (initialData.enabled_modules || initialData.settings?.enabled_modules || ['dashboard']);
+
             setFormData({
                 name: initialData.name || '',
                 org_type: initialData.org_type || initialData.type || 'HOSPITAL',
                 address: initialData.address || '',
-                enabled_modules: initialData.enabled_modules || initialData.settings?.enabled_modules || ['dashboard'],
+                enabled_modules: loadedModules.includes('dashboard') ? loadedModules : [...loadedModules, 'dashboard'],
                 settings: initialData.settings || {}
             });
         } else {
