@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { showToast } from '../components/common/Toast';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -23,11 +24,33 @@ api.interceptors.response.use(
         return response.data;
     },
     (error) => {
-        if (error.response && error.response.status === 401) {
+        const status = error.response?.status;
+
+        if (status === 401) {
             localStorage.removeItem('token');
+            localStorage.removeItem('original_token');
+            localStorage.removeItem('impersonated_org_name');
             window.location.href = '/login';
         }
-        return Promise.reject(error.response?.data || error);
+
+        if (status === 403) {
+            showToast('Access denied. You do not have permission to perform this action.');
+        }
+
+        const serverData = error.response?.data || {};
+        const enriched = {
+            ...serverData,
+            status: status || null,
+            message:
+                serverData.message ||
+                (status === 403
+                    ? 'Access denied. You do not have permission to perform this action.'
+                    : status === 404
+                        ? 'Resource not found.'
+                        : error.message || 'An unexpected error occurred.'),
+        };
+
+        return Promise.reject(enriched);
     }
 );
 

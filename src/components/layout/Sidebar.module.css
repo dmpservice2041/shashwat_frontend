@@ -139,6 +139,25 @@
 }
 
 
+.navGroup {
+    margin-bottom: 1.5rem;
+}
+
+.groupHeader {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--neutral-400);
+    letter-spacing: 0.1em;
+    padding: 0 0.75rem;
+    margin-bottom: 0.5rem;
+    pointer-events: none;
+}
+
+.closed .navGroup {
+    margin-bottom: 1rem;
+}
+
 .sidebarFooter {
     padding: 1.25rem 0.75rem;
     border-top: 1px solid var(--neutral-200);
