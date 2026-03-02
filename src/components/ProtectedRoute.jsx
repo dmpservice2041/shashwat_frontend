@@ -1,8 +1,11 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Layout from '../components/layout/Layout';
+import { hasPermission } from '../utils/permissions';
+import { MODULE_KEYS } from '../constants/permissionModules';
 
-const ProtectedRoute = () => {
+const ProtectedRoute = (props) => {
+    const { allowedOrganizationTypes, requiredPermission, module, withLayout = false } = props;
     const { user, loading } = useAuth();
 
     if (loading) {
@@ -18,11 +21,27 @@ const ProtectedRoute = () => {
         return <Navigate to="/login" replace />;
     }
 
-    return (
-        <Layout>
-            <Outlet />
-        </Layout>
-    );
+    if (allowedOrganizationTypes && !allowedOrganizationTypes.includes(user.organization_type)) {
+        return <Navigate to="/permission-denied" replace />;
+    }
+
+    const enabledModules = user.enabled_modules || [];
+
+    if (module && !enabledModules.includes(module)) {
+        return <Navigate to="/permission-denied" state={{ message: 'This module is not enabled for your organization.' }} replace />;
+    }
+
+    if (requiredPermission && !hasPermission(user.permissions, requiredPermission)) {
+        return <Navigate to="/permission-denied" state={{ message: 'You do not have permission to access this page.' }} replace />;
+    }
+
+    const content = <Outlet />;
+
+    if (withLayout) {
+        return <Layout>{content}</Layout>;
+    }
+
+    return content;
 };
 
 export default ProtectedRoute;
