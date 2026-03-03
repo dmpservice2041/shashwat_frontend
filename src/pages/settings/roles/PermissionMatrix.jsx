@@ -19,23 +19,15 @@ const ACTION_COLORS = {
     update_status: 'var(--primary-500)',
 };
 
-/**
- * PermissionMatrix — pure controlled component.
- *
- * Props:
- *   permissions  string[]   Selected permission keys, e.g. ["users:view"]
- *   onChange     fn         Called with new keys array on every change
- *   readOnly     bool       Disable all inputs
- *   catalogue    object     Grouped response from GET /api/roles/permissions
- *                           { users: [{ id, key, action }], ... }
- *                           If omitted, falls back to static PERMISSION_MODULES
- */
 const PermissionMatrix = ({ permissions = [], onChange, readOnly = false, catalogue = null, enabledModules = [] }) => {
+
+    const toTitleCase = (str) =>
+        str.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
     const rawModules = catalogue
         ? Object.entries(catalogue).map(([moduleKey, perms]) => ({
             key: moduleKey,
-            label: moduleKey.charAt(0).toUpperCase() + moduleKey.slice(1),
+            label: perms[0]?.module_label || toTitleCase(moduleKey),
             actions: perms.map(p => p.action),
         }))
         : PERMISSION_MODULES;

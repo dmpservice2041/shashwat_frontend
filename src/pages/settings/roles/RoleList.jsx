@@ -59,16 +59,26 @@ const RoleList = () => {
     const openEdit = (role) => { setEditingRole(role); setIsFormOpen(true); };
 
     const getPermissionCount = (role) => {
-        if (Array.isArray(role.permissions)) return countPermissions(role.permissions);
-        if (typeof role.permissionsCount === 'number') return role.permissionsCount;
-        return 0;
+        const arr = role.Permissions || role.permissions;
+        if (Array.isArray(arr)) return countPermissions(arr);
+        return (
+            role.permissionsCount ??
+            role.permissions_count ??
+            role.permission_count ??
+            0
+        );
     };
 
     const getMemberCount = (role) => {
-        if (typeof role.membersCount === 'number') return role.membersCount;
-        if (typeof role.usersCount === 'number') return role.usersCount;
-        if (Array.isArray(role.members)) return role.members.length;
-        return null;
+        const members = role.Members || role.members;
+        if (Array.isArray(members)) return members.length;
+        return (
+            role.membersCount ??
+            role.members_count ??
+            role.usersCount ??
+            role.users_count ??
+            null
+        );
     };
 
     const isProtected = (role) =>
