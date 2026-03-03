@@ -166,7 +166,7 @@ const OrganizationDetails = () => {
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px', marginBottom: '12px', fontSize: '14px' }}>
                             <div style={{ color: '#6b7280', fontWeight: 500 }}>Address</div>
-                            <div style={{ color: '#111827' }}>{organization.address || '—'}</div>
+                            <div style={{ color: '#111827' }}>{organization.address || organization.organization_address || organization.settings?.address || '—'}</div>
                         </div>
                     </div>
                 </div>

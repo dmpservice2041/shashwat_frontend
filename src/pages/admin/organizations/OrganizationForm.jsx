@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Save, User, Mail, Phone, Lock, KeyRound, Building2, Globe, CheckSquare, Square, Loader2 ,X} from 'lucide-react';
+import { Save, User, Mail, Phone, Lock, KeyRound, Building2, Globe, CheckSquare, Square, Loader2, X } from 'lucide-react';
 import api from '../../../services/api';
 import { PERMISSION_MODULES } from '../../../utils/permissions';
 import { MODULE_KEYS } from '../../../constants/permissionModules';
@@ -31,7 +31,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
             setFormData({
                 name: initialData.name || '',
                 org_type: initialData.org_type || initialData.type || 'HOSPITAL',
-                address: initialData.address || '',
+                address: initialData.address || initialData.organization_address || initialData.settings?.address || '',
                 enabled_modules: loadedModules.includes('dashboard') ? loadedModules : [...loadedModules, 'dashboard'],
                 settings: initialData.settings || {}
             });
@@ -92,6 +92,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                 name: formData.name || '',
                 org_type: formData.org_type || 'HOSPITAL',
                 address: formData.address || '',
+                organization_address: formData.address || '',
                 enabled_modules: formData.enabled_modules,
                 settings: formData.settings || {}
             };
