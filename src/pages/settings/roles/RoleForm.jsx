@@ -11,6 +11,7 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
     const [description, setDescription] = useState('');
 
     const [selectedKeys, setSelectedKeys] = useState([]);
+    const [keyToId, setKeyToId] = useState({});
 
     const [catalogue, setCatalogue] = useState(null);
     const [catalogueLoading, setCatalogueLoading] = useState(false);
@@ -54,12 +55,16 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
             setRoleName(editRole.name || '');
             setDescription(editRole.description || '');
 
-            const rawPerms = Array.isArray(editRole.permissions) ? editRole.permissions : [];
+            const rawPerms = Array.isArray(editRole.Permissions)
+                ? editRole.Permissions
+                : Array.isArray(editRole.permissions)
+                    ? editRole.permissions
+                    : [];
             const keys = rawPerms.map(p => {
                 if (typeof p === 'string') {
                     return p.includes(':') ? p : null;
                 }
-                return p.key || null;
+                return p.key || p.permission_key || null;
             }).filter(Boolean);
             setSelectedKeys(keys);
         } else {
@@ -105,7 +110,7 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
                 await api.post('/roles', {
                     name: roleName.trim(),
                     description: description.trim(),
-                    permission_ids: permissionsPayload,
+                    permissionIds: permissionsPayload,
                 });
             }
 
