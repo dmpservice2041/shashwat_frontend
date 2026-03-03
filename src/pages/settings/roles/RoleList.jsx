@@ -99,7 +99,7 @@ const RoleList = () => {
             {/* Toolbar */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', gap: '12px', flexWrap: 'wrap' }}>
                 <div style={{ position: 'relative', flex: '1 1 240px', maxWidth: '340px' }}>
-                    <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
+                    <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--neutral-400)' }} />
                     <input
                         type="text"
                         placeholder="Search roles..."
@@ -107,7 +107,7 @@ const RoleList = () => {
                         onChange={e => setSearchTerm(e.target.value)}
                         style={{
                             width: '100%', padding: '9px 12px 9px 36px', boxSizing: 'border-box',
-                            border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px'
+                            border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px'
                         }}
                     />
                 </div>
@@ -138,9 +138,9 @@ const RoleList = () => {
 
             {/* Roles Grid */}
             {loading ? (
-                <div style={{ textAlign: 'center', padding: '48px', color: '#6b7280', fontSize: '14px' }}>Loading roles...</div>
+                <div style={{ textAlign: 'center', padding: '48px', color: 'var(--neutral-500)', fontSize: '14px' }}>Loading roles...</div>
             ) : filtered.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '48px', color: '#6b7280', fontSize: '14px' }}>
+                <div style={{ textAlign: 'center', padding: '48px', color: 'var(--neutral-500)', fontSize: '14px' }}>
                     {searchTerm ? 'No roles match your search.' : 'No roles created yet.'}
                 </div>
             ) : (
@@ -152,7 +152,7 @@ const RoleList = () => {
 
                         return (
                             <div key={role.id} style={{
-                                background: 'white', border: '1px solid #e5e7eb', borderRadius: '10px',
+                                background: 'var(--surface-color)', border: '1px solid var(--neutral-200)', borderRadius: '10px',
                                 padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px',
                                 boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
                                 borderTop: `3px solid ${protected_ ? '#f59e0b' : 'var(--primary-600)'}`,
@@ -162,16 +162,16 @@ const RoleList = () => {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <div style={{
                                             width: '38px', height: '38px', borderRadius: '8px',
-                                            background: protected_ ? '#fef3c7' : '#ede9fe',
+                                            background: protected_ ? '#fef3c7' : 'var(--primary-50)',
                                             display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                                         }}>
                                             {protected_
                                                 ? <Lock size={18} style={{ color: '#d97706' }} />
-                                                : <Shield size={18} style={{ color: '#7c3aed' }} />
+                                                : <Shield size={18} style={{ color: 'var(--primary-600)' }} />
                                             }
                                         </div>
                                         <div>
-                                            <div style={{ fontWeight: 700, fontSize: '15px', color: '#111827' }}>{role.name}</div>
+                                            <div style={{ fontWeight: 700, fontSize: '15px', color: 'var(--neutral-900)' }}>{role.name}</div>
                                             {protected_ && (
                                                 <span style={{
                                                     fontSize: '10px', fontWeight: 600,
@@ -189,7 +189,7 @@ const RoleList = () => {
                                             title="Edit Role"
                                             style={{
                                                 padding: '6px', borderRadius: '6px', border: 'none',
-                                                background: '#f3f4f6', color: '#374151', cursor: 'pointer',
+                                                background: 'var(--neutral-50)', color: 'var(--neutral-900)', cursor: 'pointer',
                                                 display: 'flex', alignItems: 'center',
                                             }}
                                         >
@@ -201,8 +201,8 @@ const RoleList = () => {
                                             title={protected_ ? 'Protected role cannot be deleted' : 'Delete Role'}
                                             style={{
                                                 padding: '6px', borderRadius: '6px', border: 'none',
-                                                background: protected_ ? '#f3f4f6' : '#fee2e2',
-                                                color: protected_ ? '#9ca3af' : '#dc2626',
+                                                background: protected_ ? 'var(--neutral-50)' : '#fee2e2',
+                                                color: protected_ ? 'var(--neutral-400)' : '#dc2626',
                                                 cursor: protected_ ? 'not-allowed' : 'pointer',
                                                 display: 'flex', alignItems: 'center',
                                             }}
@@ -214,21 +214,21 @@ const RoleList = () => {
 
                                 {/* Description */}
                                 {role.description && (
-                                    <p style={{ fontSize: '13px', color: '#6b7280', margin: 0, lineHeight: 1.5 }}>
+                                    <p style={{ fontSize: '13px', color: 'var(--neutral-500)', margin: 0, lineHeight: 1.5 }}>
                                         {role.description}
                                     </p>
                                 )}
 
                                 {/* Stats */}
-                                <div style={{ display: 'flex', gap: '16px', paddingTop: '8px', borderTop: '1px solid #f3f4f6' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#6b7280' }}>
+                                <div style={{ display: 'flex', gap: '16px', paddingTop: '8px', borderTop: '1px solid var(--neutral-200)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--neutral-500)' }}>
                                         <ShieldCheck size={14} style={{ color: 'var(--primary-600)' }} />
-                                        <span><strong style={{ color: '#111827' }}>{permCount}</strong> permissions</span>
+                                        <span><strong style={{ color: 'var(--neutral-900)' }}>{permCount}</strong> permissions</span>
                                     </div>
                                     {memberCount !== null && (
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#6b7280' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--neutral-500)' }}>
                                             <Users size={14} style={{ color: '#10b981' }} />
-                                            <span><strong style={{ color: '#111827' }}>{memberCount}</strong> members</span>
+                                            <span><strong style={{ color: 'var(--neutral-900)' }}>{memberCount}</strong> members</span>
                                         </div>
                                     )}
                                 </div>
@@ -246,19 +246,19 @@ const RoleList = () => {
                     background: 'rgba(0,0,0,0.5)'
                 }}>
                     <div style={{
-                        background: 'white', borderRadius: '10px', padding: '28px 32px',
+                        background: 'var(--surface-color)', borderRadius: '10px', padding: '28px 32px',
                         maxWidth: '420px', width: '100%', boxShadow: '0 8px 24px rgba(0,0,0,0.15)', textAlign: 'center',
                     }}>
                         <AlertTriangle size={40} style={{ color: '#f59e0b', marginBottom: '16px' }} />
                         <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', fontWeight: 700 }}>Delete Role?</h3>
-                        <p style={{ margin: '0 0 24px 0', fontSize: '14px', color: '#6b7280' }}>
+                        <p style={{ margin: '0 0 24px 0', fontSize: '14px', color: 'var(--neutral-500)' }}>
                             Are you sure you want to delete <strong>{deleteConfirm.name}</strong>? This cannot be undone. Members assigned to this role will lose access.
                         </p>
                         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
                             <button
                                 onClick={() => setDeleteConfirm(null)}
                                 disabled={deleting}
-                                style={{ padding: '9px 20px', border: '1px solid #d1d5db', borderRadius: '6px', background: 'white', fontWeight: 500, cursor: 'pointer', fontSize: '14px' }}
+                                style={{ padding: '9px 20px', border: '1px solid var(--neutral-200)', borderRadius: '6px', background: 'var(--surface-color)', fontWeight: 500, cursor: 'pointer', fontSize: '14px' }}
                             >
                                 Cancel
                             </button>

@@ -117,13 +117,13 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
     return (
         <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.5)' }}>
-            <div style={{ background: 'white', borderRadius: '8px', width: '100%', maxWidth: '600px', maxHeight: '90vh', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-                <div style={{ padding: '16px 20px', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+            <div style={{ background: 'var(--surface-color)', borderRadius: '8px', width: '100%', maxWidth: '600px', maxHeight: '90vh', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--neutral-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
                     <h2 style={{ fontSize: '18px', fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Building2 size={20} style={{ color: 'var(--primary-600)' }} />
                         {initialData ? 'Edit Organization' : 'Create Organization with Admin'}
                     </h2>
-                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
+                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--neutral-500)' }}>
                         <X size={20} />
                     </button>
                 </div>
@@ -137,13 +137,13 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
                     <form id="org-form" onSubmit={handleSubmit}>
                         <div style={{ marginBottom: '24px' }}>
-                            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#4b5563', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', borderBottom: '1px solid #e5e7eb', paddingBottom: '8px' }}>
+                            <h3 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--neutral-700)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', borderBottom: '1px solid var(--neutral-200)', paddingBottom: '8px' }}>
                                 1. Organization Details
                             </h3>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                         Organization Name *
                                     </label>
                                     <input
@@ -152,13 +152,13 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
-                                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                         placeholder="e.g. Apollo Hospital"
                                     />
                                 </div>
 
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                         Organization Type *
                                     </label>
                                     <select
@@ -167,7 +167,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                                         onChange={handleChange}
                                         required
                                         disabled={!!initialData}
-                                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px', background: initialData ? '#f3f4f6' : 'white', cursor: initialData ? 'not-allowed' : 'auto' }}
+                                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: initialData ? 'var(--neutral-50)' : 'var(--surface-color)', cursor: initialData ? 'not-allowed' : 'auto', color: 'var(--neutral-900)' }}
                                     >
                                         <option value="HOSPITAL">HOSPITAL</option>
                                         <option value="DOCTOR">DOCTOR</option>
@@ -181,7 +181,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                         Address
                                     </label>
                                     <input
@@ -189,7 +189,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                                         name="address"
                                         value={formData.address}
                                         onChange={handleChange}
-                                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                         placeholder="City, State"
                                     />
                                 </div>
@@ -198,24 +198,24 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
                         {!initialData && (
                             <div>
-                                <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#4b5563', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', borderBottom: '1px solid #e5e7eb', paddingBottom: '8px' }}>
+                                <h3 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--neutral-700)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', borderBottom: '1px solid var(--neutral-200)', paddingBottom: '8px' }}>
                                     2. Primary Admin Account
                                 </h3>
 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                             Full Name *
                                         </label>
                                         <div style={{ position: 'relative' }}>
-                                            <User size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                            <User size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                             <input
                                                 type="text"
                                                 name="full_name"
                                                 value={formData.full_name}
                                                 onChange={handleChange}
                                                 required
-                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                                 placeholder="John Doe"
                                             />
                                         </div>
@@ -224,35 +224,35 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                             Email Address *
                                         </label>
                                         <div style={{ position: 'relative' }}>
-                                            <Mail size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                            <Mail size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                             <input
                                                 type="email"
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                                 placeholder="admin@org.com"
                                             />
                                         </div>
                                     </div>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                             Mobile Number *
                                         </label>
                                         <div style={{ position: 'relative' }}>
-                                            <Phone size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                            <Phone size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                             <input
                                                 type="tel"
                                                 name="phone"
                                                 value={formData.phone}
                                                 onChange={handleChange}
                                                 required
-                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                                 placeholder="9999999999"
                                             />
                                         </div>
@@ -261,35 +261,35 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                             Password *
                                         </label>
                                         <div style={{ position: 'relative' }}>
-                                            <Lock size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                            <Lock size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                             <input
                                                 type="password"
                                                 name="password"
                                                 value={formData.password}
                                                 onChange={handleChange}
                                                 required
-                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                                 placeholder="Min 8 characters"
                                             />
                                         </div>
                                     </div>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                             Confirm Password *
                                         </label>
                                         <div style={{ position: 'relative' }}>
-                                            <KeyRound size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                            <KeyRound size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                             <input
                                                 type="password"
                                                 name="confirm_password"
                                                 value={formData.confirm_password}
                                                 onChange={handleChange}
                                                 required
-                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                                 placeholder="Repeat password"
                                             />
                                         </div>
@@ -299,7 +299,7 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                         )}
 
                         <div style={{ marginTop: '24px' }}>
-                            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#4b5563', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', borderBottom: '1px solid #e5e7eb', paddingBottom: '8px' }}>
+                            <h3 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--neutral-700)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px', borderBottom: '1px solid var(--neutral-200)', paddingBottom: '8px' }}>
                                 3. Module Access
                             </h3>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '8px' }}>
@@ -319,15 +319,15 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                                             }}
                                             style={{
                                                 padding: '8px 12px',
-                                                border: `1px solid ${isEnabled ? 'var(--primary-200)' : '#e5e7eb'}`,
+                                                border: `1px solid ${isEnabled ? 'var(--primary-200)' : 'var(--neutral-200)'}`,
                                                 borderRadius: '6px',
-                                                background: isEnabled ? 'var(--primary-50)' : 'white',
+                                                background: isEnabled ? 'var(--primary-50)' : 'var(--surface-color)',
                                                 cursor: isRequired ? 'default' : 'pointer',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 gap: '8px',
                                                 fontSize: '13px',
-                                                color: isEnabled ? 'var(--primary-700)' : '#6b7280',
+                                                color: isEnabled ? 'var(--primary-700)' : 'var(--neutral-500)',
                                                 opacity: isRequired ? 0.7 : 1
                                             }}
                                         >
@@ -341,10 +341,10 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                     </form>
                 </div>
 
-                <div style={{ padding: '16px 20px', borderTop: '1px solid #e5e7eb', display: 'flex', justifyContent: 'flex-end', gap: '12px', background: '#f9fafb', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', flexShrink: 0 }}>
+                <div style={{ padding: '16px 20px', borderTop: '1px solid var(--neutral-200)', display: 'flex', justifyContent: 'flex-end', gap: '12px', background: 'var(--neutral-50)', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', flexShrink: 0 }}>
                     <button
                         onClick={onClose}
-                        style={{ padding: '8px 16px', border: '1px solid #d1d5db', background: 'white', borderRadius: '6px', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}
+                        style={{ padding: '8px 16px', border: '1px solid var(--neutral-200)', background: 'var(--surface-color)', borderRadius: '6px', fontSize: '14px', fontWeight: 500, cursor: 'pointer', color: 'var(--neutral-900)' }}
                         type="button"
                     >
                         Cancel

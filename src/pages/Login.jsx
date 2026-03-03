@@ -49,7 +49,22 @@ const Login = () => {
                 </div>
 
                 <form onSubmit={handleLogin} className={styles.loginForm}>
-                    {error && <div className={styles.errorMessage} style={{ color: 'red', marginBottom: '1rem', textAlign: 'center', backgroundColor: '#ffe6e6', padding: '10px', borderRadius: '5px' }}>{error}</div>}
+                    {error && (
+                        <div
+                            className={styles.errorMessage}
+                            style={{
+                                color: 'var(--danger)',
+                                marginBottom: '1rem',
+                                textAlign: 'center',
+                                backgroundColor: '#fee2e2',
+                                border: '1px solid #fecaca',
+                                padding: '10px',
+                                borderRadius: '6px'
+                            }}
+                        >
+                            {error}
+                        </div>
+                    )}
                     <div className={styles.inputGroup}>
                         <label className={styles.inputLabel} htmlFor="email">Email Address</label>
                         <div className={styles.inputWrapper}>

@@ -21,10 +21,10 @@ const Toast = () => {
     if (!toast) return null;
 
     const config = {
-        error: { icon: ShieldAlert, color: '#ef4444', bg: '#fee2e2', border: '#fecaca' },
-        success: { icon: CheckCircle, color: '#10b981', bg: '#d1fae5', border: '#a7f3d0' },
-        warning: { icon: AlertCircle, color: '#f59e0b', bg: '#fef3c7', border: '#fde68a' },
-        info: { icon: Info, color: '#3b82f6', bg: '#dbeafe', border: '#bfdbfe' },
+        error: { icon: ShieldAlert, color: 'var(--danger)', bg: '#fee2e2', border: '#fecaca' },
+        success: { icon: CheckCircle, color: 'var(--success)', bg: '#d1fae5', border: '#a7f3d0' },
+        warning: { icon: AlertCircle, color: 'var(--warning)', bg: '#fef3c7', border: '#fde68a' },
+        info: { icon: Info, color: 'var(--primary-600)', bg: 'var(--primary-50)', border: 'var(--primary-200)' },
     };
 
     const { icon: Icon, color, bg, border } = config[toast.type] || config.info;
@@ -50,12 +50,12 @@ const Toast = () => {
             animation: 'slideUp 0.3s ease-out'
         }}>
             <Icon size={20} style={{ color, flexShrink: 0 }} />
-            <span style={{ fontSize: '14px', fontWeight: 600, color: '#1f2937', flex: 1 }}>
+            <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--neutral-900)', flex: 1 }}>
                 {toast.message}
             </span>
             <button
                 onClick={() => setToast(null)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', padding: '4px' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--neutral-400)', padding: '4px' }}
             >
                 <X size={16} />
             </button>

@@ -8,7 +8,7 @@ const Users = () => {
                     <UsersIcon size={24} style={{ color: 'var(--primary-600)' }} />
                     Users
                 </h1>
-                <p style={{ margin: 0, color: '#6b7280', fontSize: '14px' }}>
+                <p style={{ margin: 0, color: 'var(--neutral-500)', fontSize: '14px' }}>
                     Manage organization members and their system access.
                 </p>
             </div>
@@ -16,15 +16,15 @@ const Users = () => {
             <div style={{
                 padding: '48px',
                 textAlign: 'center',
-                background: 'white',
+                background: 'var(--surface-color)',
                 borderRadius: '8px',
-                border: '1px border #e5e7eb',
-                color: '#6b7280'
+                border: '1px solid var(--neutral-200)',
+                color: 'var(--neutral-500)'
             }}>
                 <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
                     <UsersIcon size={48} style={{ opacity: 0.2 }} />
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#374151', marginBottom: '8px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--neutral-900)', marginBottom: '8px' }}>
                     Users List Coming Soon
                 </h3>
                 <p style={{ maxWidth: '400px', margin: '0 auto' }}>

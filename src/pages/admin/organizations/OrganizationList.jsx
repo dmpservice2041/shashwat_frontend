@@ -92,7 +92,7 @@ const OrganizationList = () => {
                         <Building2 size={24} style={{ color: 'var(--primary-600)' }} />
                         Organizations
                     </h1>
-                    <p style={{ color: '#6b7280', margin: '4px 0 0 0', fontSize: '14px' }}>Manage global organizations and impersonate accounts.</p>
+                    <p style={{ color: 'var(--neutral-500)', margin: '4px 0 0 0', fontSize: '14px' }}>Manage global organizations and impersonate accounts.</p>
                 </div>
                 <button
                     onClick={openCreateForm}
@@ -103,14 +103,14 @@ const OrganizationList = () => {
                 </button>
             </div>
 
-            <div style={{ background: 'white', borderRadius: '8px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-                <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}>
+            <div style={{ background: 'var(--surface-color)', borderRadius: '8px', border: '1px solid var(--neutral-200)', overflow: 'hidden' }}>
+                <div style={{ padding: '16px', borderBottom: '1px solid var(--neutral-200)' }}>
                     <div style={{ position: 'relative', maxWidth: '300px' }}>
-                        <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} size={20} />
+                        <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--neutral-400)' }} size={20} />
                         <input
                             type="text"
                             placeholder="Search organizations..."
-                            style={{ width: '100%', padding: '10px 10px 10px 40px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                            style={{ width: '100%', padding: '10px 10px 10px 40px', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px' }}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -120,7 +120,7 @@ const OrganizationList = () => {
                 <div style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
                         <thead>
-                            <tr style={{ background: '#f9fafb', fontSize: '12px', textTransform: 'uppercase', color: '#6b7280', letterSpacing: '0.05em' }}>
+                            <tr style={{ background: 'var(--neutral-50)', fontSize: '12px', textTransform: 'uppercase', color: 'var(--neutral-500)', letterSpacing: '0.05em' }}>
                                 <th style={{ padding: '16px', fontWeight: 600 }}>Name</th>
                                 <th style={{ padding: '16px', fontWeight: 600 }}>Type</th>
                                 <th style={{ padding: '16px', fontWeight: 600 }}>Status</th>
@@ -130,15 +130,15 @@ const OrganizationList = () => {
                         <tbody style={{ fontSize: '14px' }}>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center', padding: '32px', color: '#6b7280' }}>Loading organizations...</td>
+                                    <td colSpan="4" style={{ textAlign: 'center', padding: '32px', color: 'var(--neutral-500)' }}>Loading organizations...</td>
                                 </tr>
                             ) : filteredOrgs.length === 0 ? (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center', padding: '32px', color: '#6b7280' }}>No organizations found.</td>
+                                    <td colSpan="4" style={{ textAlign: 'center', padding: '32px', color: 'var(--neutral-500)' }}>No organizations found.</td>
                                 </tr>
                             ) : (
                                 filteredOrgs.map((org) => (
-                                    <tr key={org.id} style={{ borderTop: '1px solid #f3f4f6' }}>
+                                    <tr key={org.id} style={{ borderTop: '1px solid var(--neutral-200)' }}>
                                         <td style={{ padding: '16px' }}>
                                             <a
                                                 href={`/admin/organizations/${org.id}`}
@@ -150,10 +150,10 @@ const OrganizationList = () => {
                                             >
                                                 {org.name}
                                             </a>
-                                            <div style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>{org.email || 'No email specified'}</div>
+                                            <div style={{ fontSize: '12px', color: 'var(--neutral-500)', marginTop: '4px' }}>{org.email || 'No email specified'}</div>
                                         </td>
                                         <td style={{ padding: '16px' }}>
-                                            <span style={{ padding: '4px 8px', background: '#dbeafe', color: '#1d4ed8', borderRadius: '9999px', fontSize: '12px', fontWeight: 500 }}>
+                                            <span style={{ padding: '4px 8px', background: 'var(--primary-50)', color: 'var(--primary-600)', borderRadius: '9999px', fontSize: '12px', fontWeight: 500 }}>
                                                 {org.org_type || org.type || 'UNKNOWN'}
                                             </span>
                                         </td>
@@ -169,7 +169,7 @@ const OrganizationList = () => {
                                                 )}
                                                 <button
                                                     onClick={() => navigate(`/admin/organizations/${org.id}`)}
-                                                    style={{ padding: '6px 12px', background: '#f3f4f6', color: '#374151', border: 'none', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px' }}
+                                                    style={{ padding: '6px 12px', background: 'var(--neutral-50)', color: 'var(--neutral-900)', border: 'none', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px' }}
                                                 >
                                                     <Edit2 size={14} /> Edit
                                                 </button>

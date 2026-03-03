@@ -15,7 +15,7 @@ const Settings = () => {
                     <SettingsIcon size={24} style={{ color: 'var(--primary-600)' }} />
                     Settings
                 </h1>
-                <p style={{ margin: 0, color: '#6b7280', fontSize: '14px' }}>
+                <p style={{ margin: 0, color: 'var(--neutral-500)', fontSize: '14px' }}>
                     Manage organization global configurations.
                 </p>
             </div>
@@ -23,7 +23,7 @@ const Settings = () => {
             {/* Tab Bar */}
             <div style={{
                 display: 'flex',
-                borderBottom: '2px solid #e5e7eb',
+                borderBottom: '2px solid var(--neutral-200)',
                 marginBottom: '28px',
                 gap: '4px',
             }}>
@@ -41,7 +41,7 @@ const Settings = () => {
                                 cursor: 'pointer',
                                 fontSize: '14px',
                                 fontWeight: isActive ? 600 : 400,
-                                color: isActive ? 'var(--primary-600)' : '#6b7280',
+                                color: isActive ? 'var(--primary-600)' : 'var(--neutral-500)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '8px',
@@ -58,7 +58,7 @@ const Settings = () => {
 
             {/* Tab Content */}
             {activeTab === 'general' && (
-                <div style={{ color: '#6b7280', fontSize: '14px', padding: '32px', textAlign: 'center', border: '1px dashed #e5e7eb', borderRadius: '8px' }}>
+                <div style={{ color: 'var(--neutral-500)', fontSize: '14px', padding: '32px', textAlign: 'center', border: '1px dashed var(--neutral-200)', borderRadius: '8px' }}>
                     General settings — coming soon.
                 </div>
             )}
