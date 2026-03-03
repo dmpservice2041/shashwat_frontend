@@ -76,7 +76,7 @@ const OrganizationModuleSettings = () => {
         return (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', height: '50vh', gap: '12px' }}>
                 <Loader2 size={32} className="animate-spin" style={{ color: 'var(--primary-600)' }} />
-                <span style={{ color: '#6b7280' }}>Loading module configuration...</span>
+                <span style={{ color: 'var(--neutral-500)' }}>Loading module configuration...</span>
             </div>
         );
     }
@@ -86,15 +86,15 @@ const OrganizationModuleSettings = () => {
             <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <button
                     onClick={() => navigate(`/admin/organizations/${id}`)}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', border: '1px solid #d1d5db', color: '#374151', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface-color)', border: '1px solid var(--neutral-200)', color: 'var(--neutral-900)', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
                 >
                     <ArrowLeft size={20} />
                 </button>
                 <div>
-                    <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 4px 0', color: '#111827' }}>
+                    <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 4px 0', color: 'var(--neutral-900)' }}>
                         Module Configuration: {orgName}
                     </h1>
-                    <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
+                    <p style={{ margin: 0, fontSize: '14px', color: 'var(--neutral-500)' }}>
                         Enable or disable entire functional modules for this organization.
                     </p>
                 </div>
@@ -129,8 +129,8 @@ const OrganizationModuleSettings = () => {
                             onClick={() => !isDashboard && handleToggle(mod.key)}
                             style={{
                                 padding: '16px 20px',
-                                background: 'white',
-                                border: `1px solid ${isEnabled ? 'var(--primary-200)' : '#e5e7eb'}`,
+                                background: 'var(--surface-color)',
+                                border: `1px solid ${isEnabled ? 'var(--primary-200)' : 'var(--neutral-200)'}`,
                                 borderRadius: '12px',
                                 cursor: isDashboard ? 'default' : 'pointer',
                                 display: 'flex',
@@ -146,24 +146,24 @@ const OrganizationModuleSettings = () => {
                                     width: '40px',
                                     height: '40px',
                                     borderRadius: '10px',
-                                    background: isEnabled ? 'var(--primary-50)' : '#f3f4f6',
+                                    background: isEnabled ? 'var(--primary-50)' : 'var(--neutral-50)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    color: isEnabled ? 'var(--primary-600)' : '#9ca3af'
+                                    color: isEnabled ? 'var(--primary-600)' : 'var(--neutral-400)'
                                 }}>
                                     <LayoutGrid size={20} />
                                 </div>
-                                <div style={{ fontWeight: 600, color: isEnabled ? '#111827' : '#6b7280' }}>
+                                <div style={{ fontWeight: 600, color: isEnabled ? 'var(--neutral-900)' : 'var(--neutral-500)' }}>
                                     {mod.label}
-                                    {isDashboard && <span style={{ marginLeft: '8px', fontSize: '10px', color: '#9ca3af', fontWeight: 400 }}>(Required)</span>}
+                                    {isDashboard && <span style={{ marginLeft: '8px', fontSize: '10px', color: 'var(--neutral-400)', fontWeight: 400 }}>(Required)</span>}
                                 </div>
                             </div>
 
                             <div style={{
                                 width: '44px',
                                 height: '24px',
-                                background: isEnabled ? 'var(--primary-600)' : '#d1d5db',
+                                background: isEnabled ? 'var(--primary-600)' : 'var(--neutral-200)',
                                 borderRadius: '12px',
                                 position: 'relative',
                                 transition: 'background 0.2s',
@@ -171,7 +171,7 @@ const OrganizationModuleSettings = () => {
                                 <div style={{
                                     width: '18px',
                                     height: '18px',
-                                    background: 'white',
+                                    background: 'var(--surface-color)',
                                     borderRadius: '50%',
                                     position: 'absolute',
                                     top: '3px',
@@ -187,17 +187,17 @@ const OrganizationModuleSettings = () => {
 
             <div style={{
                 padding: '20px',
-                borderTop: '1px solid #e5e7eb',
+                borderTop: '1px solid var(--neutral-200)',
                 display: 'flex',
                 justifyContent: 'flex-end',
                 gap: '12px',
-                background: '#f9fafb',
+                background: 'var(--neutral-50)',
                 borderRadius: '0 0 12px 12px',
                 margin: '0 -24px -24px -24px'
             }}>
                 <button
                     onClick={() => navigate(`/admin/organizations/${id}`)}
-                    style={{ padding: '10px 24px', background: 'white', border: '1px solid #d1d5db', borderRadius: '8px', fontWeight: 500, cursor: 'pointer' }}
+                    style={{ padding: '10px 24px', background: 'var(--surface-color)', border: '1px solid var(--neutral-200)', borderRadius: '8px', fontWeight: 500, cursor: 'pointer', color: 'var(--neutral-900)' }}
                 >
                     Cancel
                 </button>

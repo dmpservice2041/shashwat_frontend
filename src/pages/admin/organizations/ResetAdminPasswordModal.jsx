@@ -58,13 +58,13 @@ const ResetAdminPasswordModal = ({ isOpen, onClose, orgId }) => {
 
     return (
         <div style={{ position: 'fixed', inset: 0, zIndex: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.5)' }}>
-            <div style={{ background: 'white', borderRadius: '8px', width: '100%', maxWidth: '450px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ padding: '16px 20px', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ background: 'var(--surface-color)', borderRadius: '8px', width: '100%', maxWidth: '450px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--neutral-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h2 style={{ fontSize: '18px', fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', gap: '8px', color: '#991b1b' }}>
                         <AlertTriangle size={20} />
                         Reset Admin Password
                     </h2>
-                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
+                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--neutral-500)' }}>
                         <X size={20} />
                     </button>
                 </div>
@@ -81,43 +81,43 @@ const ResetAdminPasswordModal = ({ isOpen, onClose, orgId }) => {
                         </div>
                     )}
 
-                    <p style={{ fontSize: '13px', color: '#4b5563', marginBottom: '20px', lineHeight: '1.5' }}>
+                    <p style={{ fontSize: '13px', color: 'var(--neutral-700)', marginBottom: '20px', lineHeight: '1.5' }}>
                         You are about to forcibly reset the password for this organization's Primary Admin. This action creates an audit trail.
                     </p>
 
                     <form id="reset-password-form" onSubmit={handleSubmit}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                     New Password *
                                 </label>
                                 <div style={{ position: 'relative' }}>
-                                    <Lock size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                    <Lock size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                     <input
                                         type="password"
                                         name="admin_password"
                                         value={formData.admin_password}
                                         onChange={handleChange}
                                         required
-                                        style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                        style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                         placeholder="Min 8 characters"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: '#374151' }}>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                     Confirm New Password *
                                 </label>
                                 <div style={{ position: 'relative' }}>
-                                    <KeyRound size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: '#9ca3af' }} />
+                                    <KeyRound size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                     <input
                                         type="password"
                                         name="admin_confirm_password"
                                         value={formData.admin_confirm_password}
                                         onChange={handleChange}
                                         required
-                                        style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                        style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
                                         placeholder="Repeat new password"
                                     />
                                 </div>
@@ -126,10 +126,10 @@ const ResetAdminPasswordModal = ({ isOpen, onClose, orgId }) => {
                     </form>
                 </div>
 
-                <div style={{ padding: '16px 20px', borderTop: '1px solid #e5e7eb', display: 'flex', justifyContent: 'flex-end', gap: '12px', background: '#f9fafb', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}>
+                <div style={{ padding: '16px 20px', borderTop: '1px solid var(--neutral-200)', display: 'flex', justifyContent: 'flex-end', gap: '12px', background: 'var(--neutral-50)', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px' }}>
                     <button
                         onClick={onClose}
-                        style={{ padding: '8px 16px', border: '1px solid #d1d5db', background: 'white', borderRadius: '6px', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}
+                        style={{ padding: '8px 16px', border: '1px solid var(--neutral-200)', background: 'var(--surface-color)', borderRadius: '6px', fontSize: '14px', fontWeight: 500, cursor: 'pointer', color: 'var(--neutral-900)' }}
                         type="button"
                     >
                         Cancel

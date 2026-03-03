@@ -11,12 +11,12 @@ const ACTION_LABELS = {
 };
 
 const ACTION_COLORS = {
-    view: '#3b82f6',
+    view: 'var(--primary-600)',
     create: '#10b981',
     edit: '#f59e0b',
     delete: '#ef4444',
-    approve: '#8b5cf6',
-    update_status: '#06b6d4',
+    approve: 'var(--primary-500)',
+    update_status: 'var(--primary-500)',
 };
 
 /**
@@ -111,15 +111,15 @@ const PermissionMatrix = ({ permissions = [], onChange, readOnly = false, catalo
 
                 return (
                     <div key={mod.key} style={{
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid var(--neutral-200)',
                         borderRadius: '8px',
                         overflow: 'hidden',
-                        background: (viewOn || partial) ? '#f0fdf4' : '#fafafa',
+                        background: (viewOn || partial) ? 'var(--primary-50)' : 'var(--surface-color)',
                         transition: 'background 0.15s'
                     }}>
                         <div style={{
                             display: 'flex', alignItems: 'center', gap: '10px',
-                            padding: '10px 16px', borderBottom: '1px solid #e5e7eb', background: '#f9fafb',
+                            padding: '10px 16px', borderBottom: '1px solid var(--neutral-200)', background: 'var(--neutral-50)',
                         }}>
                             <input
                                 type="checkbox"
@@ -127,12 +127,12 @@ const PermissionMatrix = ({ permissions = [], onChange, readOnly = false, catalo
                                 ref={el => { if (el) el.indeterminate = partial; }}
                                 onChange={(e) => handleModuleToggle(mod.key, e.target.checked)}
                                 disabled={readOnly}
-                                style={{ width: '16px', height: '16px', cursor: readOnly ? 'not-allowed' : 'pointer', accentColor: '#4f46e5' }}
+                                style={{ width: '16px', height: '16px', cursor: readOnly ? 'not-allowed' : 'pointer', accentColor: 'var(--primary-600)' }}
                                 title={`Toggle all ${mod.label} permissions`}
                             />
                             <span style={{
                                 fontSize: '12px', fontWeight: 700, textTransform: 'uppercase',
-                                letterSpacing: '0.05em', color: '#374151', flex: 1,
+                                letterSpacing: '0.05em', color: 'var(--neutral-900)', flex: 1,
                             }}>
                                 {mod.label}
                             </span>
@@ -177,13 +177,13 @@ const PermissionMatrix = ({ permissions = [], onChange, readOnly = false, catalo
                                             style={{
                                                 width: '15px', height: '15px',
                                                 cursor: isActionDisabled ? 'not-allowed' : 'pointer',
-                                                accentColor: ACTION_COLORS[action] || '#4f46e5',
+                                                accentColor: ACTION_COLORS[action] || 'var(--primary-600)',
                                             }}
                                         />
                                         <span style={{
                                             fontSize: '13px',
                                             fontWeight: checked ? 600 : 400,
-                                            color: checked ? (ACTION_COLORS[action] || '#374151') : '#6b7280',
+                                            color: checked ? (ACTION_COLORS[action] || 'var(--neutral-900)') : 'var(--neutral-500)',
                                         }}>
                                             {ACTION_LABELS[action] || action}
                                         </span>

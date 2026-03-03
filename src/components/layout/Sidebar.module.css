@@ -47,13 +47,13 @@
     flex-shrink: 0;
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, var(--primary-500), #8b5cf6);
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 2px 8px rgba(9, 99, 126, 0.2);
 }
 
 .brandTitle {

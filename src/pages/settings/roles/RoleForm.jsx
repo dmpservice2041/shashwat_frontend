@@ -133,20 +133,20 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
             background: 'rgba(0,0,0,0.45)'
         }}>
             <div style={{
-                background: 'white', width: '100%', maxWidth: '680px', height: '100vh',
+                background: 'var(--surface-color)', width: '100%', maxWidth: '680px', height: '100vh',
                 display: 'flex', flexDirection: 'column',
                 boxShadow: '-4px 0 24px rgba(0,0,0,0.15)',
             }}>
                 <div style={{
-                    padding: '20px 24px', borderBottom: '1px solid #e5e7eb',
+                    padding: '20px 24px', borderBottom: '1px solid var(--neutral-200)',
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    background: '#f9fafb', flexShrink: 0,
+                    background: 'var(--neutral-50)', flexShrink: 0,
                 }}>
                     <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <ShieldCheck size={20} style={{ color: 'var(--primary-600)' }} />
                         {isEditing ? `Edit Role: ${editRole.name}` : 'Create New Role'}
                     </h2>
-                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', padding: '4px' }}>
+                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--neutral-500)', padding: '4px' }}>
                         <X size={22} />
                     </button>
                 </div>
@@ -200,7 +200,7 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
 
                     <form id="role-form" onSubmit={handleSubmit}>
                         <div style={{ marginBottom: '20px' }}>
-                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: '#374151' }}>
+                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                 Role Name *
                             </label>
                             <input
@@ -209,12 +209,12 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
                                 onChange={e => { setRoleName(e.target.value); if (error) setError(''); }}
                                 placeholder="e.g. Pharmacist, Billing Manager"
                                 required
-                                style={{ width: '100%', padding: '9px 12px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                style={{ width: '100%', padding: '9px 12px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px' }}
                             />
                         </div>
 
                         <div style={{ marginBottom: '24px' }}>
-                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: '#374151' }}>
+                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                 Description
                             </label>
                             <input
@@ -222,18 +222,18 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
                                 value={description}
                                 onChange={e => setDescription(e.target.value)}
                                 placeholder="Brief description of this role's purpose"
-                                style={{ width: '100%', padding: '9px 12px', boxSizing: 'border-box', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px' }}
+                                style={{ width: '100%', padding: '9px 12px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px' }}
                             />
                         </div>
 
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                                <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>
+                                <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--neutral-900)' }}>
                                     Permissions *
                                 </label>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    {catalogueLoading && <Loader2 size={14} className="animate-spin" style={{ color: '#6b7280' }} />}
-                                    <span style={{ fontSize: '12px', color: '#6b7280' }}>
+                                    {catalogueLoading && <Loader2 size={14} className="animate-spin" style={{ color: 'var(--neutral-500)' }} />}
+                                    <span style={{ fontSize: '12px', color: 'var(--neutral-500)' }}>
                                         {selectedKeys.length} selected
                                         {catalogue && <span style={{ marginLeft: '4px', color: '#10b981', fontWeight: 600 }}>· live</span>}
                                     </span>
@@ -251,13 +251,13 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
                 </div>
 
                 <div style={{
-                    padding: '16px 24px', borderTop: '1px solid #e5e7eb',
+                    padding: '16px 24px', borderTop: '1px solid var(--neutral-200)',
                     display: 'flex', justifyContent: 'flex-end', gap: '12px',
-                    background: '#f9fafb', flexShrink: 0,
+                    background: 'var(--neutral-50)', flexShrink: 0,
                 }}>
                     <button
                         type="button" onClick={onClose}
-                        style={{ padding: '9px 20px', border: '1px solid #d1d5db', background: 'white', borderRadius: '6px', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}
+                        style={{ padding: '9px 20px', border: '1px solid var(--neutral-200)', background: 'var(--surface-color)', borderRadius: '6px', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}
                     >
                         Cancel
                     </button>
@@ -267,7 +267,7 @@ const RoleForm = ({ isOpen, onClose, onSuccess, editRole = null }) => {
                         title={selectedKeys.length === 0 ? 'Select at least one permission' : ''}
                         style={{
                             padding: '9px 20px', border: 'none',
-                            background: selectedKeys.length === 0 ? '#9ca3af' : 'var(--primary-600)',
+                            background: selectedKeys.length === 0 ? 'var(--neutral-400)' : 'var(--primary-600)',
                             color: 'white', borderRadius: '6px', fontSize: '14px', fontWeight: 500,
                             cursor: selectedKeys.length === 0 || saving ? 'not-allowed' : 'pointer',
                             display: 'flex', alignItems: 'center', gap: '8px',

@@ -26,14 +26,14 @@ const PermissionDenied = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '24px',
-                color: '#ef4444'
+                color: 'var(--danger)'
             }}>
                 <ShieldAlert size={40} />
             </div>
-            <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 12px 0', color: '#111827' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 12px 0', color: 'var(--neutral-900)' }}>
                 Access Denied
             </h1>
-            <p style={{ fontSize: '16px', color: '#6b7280', maxWidth: '400px', margin: '0 0 32px 0', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '16px', color: 'var(--neutral-500)', maxWidth: '400px', margin: '0 0 32px 0', lineHeight: 1.6 }}>
                 {message}
             </p>
             <button

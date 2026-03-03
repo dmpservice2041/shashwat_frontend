@@ -10,7 +10,7 @@ const Roles = () => {
                     <ShieldCheck size={24} style={{ color: 'var(--primary-600)' }} />
                     Roles & Permissions
                 </h1>
-                <p style={{ margin: 0, color: '#6b7280', fontSize: '14px' }}>
+                <p style={{ margin: 0, color: 'var(--neutral-500)', fontSize: '14px' }}>
                     Define organization roles and configure granular resource access.
                 </p>
             </div>
