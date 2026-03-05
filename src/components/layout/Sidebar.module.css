@@ -1,43 +1,45 @@
+/* ─────────────────────────────────────────────────────────
+   SIDEBAR — brand colour tokens (hard-coded)
+   Primary  : #2563EB  (medical blue)
+   Secondary: #06B6D4  (cyan)
+   Accent   : #22C55E  (success green)
+   BG       : #F8FAFC
+   Sidebar  : #FFFFFF
+   Border   : #E5E7EB
+   Text     : #1F2937
+───────────────────────────────────────────────────────── */
+
+/* ── Sidebar shell ─────────────────────────────────────── */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    background-color: var(--surface-color);
-    border-right: 1px solid var(--neutral-200);
+    background-color: #FFFFFF;
+    border-right: 1px solid #E5E7EB;
     transition: width var(--transition-normal);
     display: flex;
     flex-direction: column;
     z-index: 50;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 2px 0 12px rgba(37, 99, 235, 0.06);
 }
 
-.open {
-    width: 280px;
-}
-
-.closed {
-    width: 80px;
-}
+.open   { width: 280px; }
+.closed { width: 80px;  }
 
 @media (max-width: 1024px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-        width: 280px;
-    }
+    .sidebar          { transform: translateX(-100%); }
+    .sidebar.open     { transform: translateX(0); width: 280px; }
 }
 
 
+/* ── Brand header ──────────────────────────────────────── */
 .brandHeader {
     height: 64px;
     display: flex;
     align-items: center;
     padding: 0 1.25rem;
-    border-bottom: 1px solid var(--neutral-200);
+    border-bottom: 1px solid #E5E7EB;
     gap: 0.75rem;
     overflow: hidden;
     white-space: nowrap;
@@ -47,168 +49,312 @@
     flex-shrink: 0;
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    background: linear-gradient(135deg, #2563EB, #06B6D4);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    box-shadow: 0 2px 8px rgba(9, 99, 126, 0.2);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.28);
 }
 
 .brandTitle {
     font-size: 1.25rem;
     font-weight: 800;
-    color: var(--neutral-900);
+    color: #1F2937;
     margin: 0;
 }
 
 
+/* ── Scroll container ──────────────────────────────────── */
 .navContainer {
     flex: 1;
-    padding: 1.5rem 0.75rem;
+    padding: 1.25rem 0.75rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
+.navContainer::-webkit-scrollbar       { width: 4px; }
+.navContainer::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 4px; }
 
-.navContainer::-webkit-scrollbar {
-    width: 4px;
-}
 
-.navContainer::-webkit-scrollbar-thumb {
-    background: var(--neutral-200);
-    border-radius: 4px;
-}
+/* ── Group wrapper ─────────────────────────────────────── */
+.navGroup         { margin-bottom: 0.25rem; }
+.closed .navGroup { margin-bottom: 0.75rem; }
 
-.navList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
 
-.navItem {
-    list-style: none;
-}
-
-.navLink {
+/* ── Group header ──────────────────────────────────────── */
+.groupHeader {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem;
-    border-radius: var(--radius-md);
-    color: var(--neutral-500);
-    font-weight: 600;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    user-select: none;
+}
+
+.groupHeader:hover {
+    background-color: #EFF6FF;
+}
+
+/* Icon box */
+.groupIconBox {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background-color: #F1F5F9;
+    border: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563EB;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.navGroup.isOpen .groupIconBox {
+    background-color: #DBEAFE;
+    border-color: #93C5FD;
+    color: #2563EB;
+}
+
+/* Group label */
+.groupLabel {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #9CA3AF;
+    white-space: nowrap;
+}
+
+/* Chevron */
+.groupChevron {
+    margin-left: auto;
+    color: #D1D5DB;
+    transition: transform 0.2s ease, color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.navGroup.isOpen .groupChevron {
+    transform: rotate(180deg);
+    color: #2563EB;
+}
+
+/* collapsed */
+.closed .groupLabel,
+.closed .groupChevron { display: none; }
+.closed .groupHeader  { justify-content: center; padding: 0.55rem; }
+
+
+/* ── Tree-line submenu ─────────────────────────────────── */
+.navList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: calc(0.65rem + 17px);
+    padding-top: 0.1rem;
+    padding-bottom: 0.4rem;
+    overflow: hidden;
+    animation: slideDown 0.18s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+.navItem {
+    position: relative;
+    padding-left: 20px;
+}
+
+/* Curved L-elbow */
+.navItem::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 50%;
+    width: 14px;
+    border-left:   1px solid #E5E7EB;
+    border-bottom: 1px solid #E5E7EB;
+    border-bottom-left-radius: 6px;
+}
+
+/* Continuation rail */
+.navItem:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    bottom: 0;
+    width: 0;
+    border-left: 1px solid #E5E7EB;
+}
+
+/* ── Nav link ──────────────────────────────────────────── */
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 8px;
+    color: #6B7280;
+    font-size: 0.875rem;
+    font-weight: 500;
     text-decoration: none;
-    transition: all var(--transition-fast);
+    transition: background 0.15s ease, color 0.15s ease;
     white-space: nowrap;
 }
 
 .navLink:hover {
-    background-color: var(--neutral-50);
-    color: var(--neutral-900);
+    background-color: #EFF6FF;
+    color: #1D4ED8;
 }
 
+/* Active → light blue bg, blue text */
 .navLink.active {
-    background-color: var(--primary-50);
-    color: var(--primary-600);
-}
-
-.navIcon {
-    flex-shrink: 0;
-    transition: color var(--transition-fast);
+    background-color: #DBEAFE;
+    color: #2563EB;
+    font-weight: 600;
 }
 
 .navLink.active .navIcon {
-    color: var(--primary-600);
+    color: #2563EB;
 }
 
-.navLabel {
-    font-size: 0.95rem;
-    opacity: 1;
-    transition: opacity var(--transition-fast);
+/* Default icon colour */
+.navIcon {
+    flex-shrink: 0;
+    color: #93C5FD; /* blue-300 — soft for inactive */
 }
 
-.closed .navLabel {
-    opacity: 0;
-    display: none;
+.navLink.active .navIcon,
+.navLink:hover .navIcon {
+    color: #2563EB;
 }
 
-.closed .navLink {
-    justify-content: center;
-}
+.navLabel { font-size: 0.875rem; }
 
 
-.navGroup {
-    margin-bottom: 1.5rem;
-}
-
-.groupHeader {
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: var(--neutral-400);
-    letter-spacing: 0.1em;
-    padding: 0 0.75rem;
-    margin-bottom: 0.5rem;
-    pointer-events: none;
-}
-
-.closed .navGroup {
-    margin-bottom: 1rem;
-}
-
+/* ── Footer ────────────────────────────────────────────── */
 .sidebarFooter {
-    padding: 1.25rem 0.75rem;
-    border-top: 1px solid var(--neutral-200);
+    padding: 1rem 0.75rem;
+    border-top: 1px solid #E5E7EB;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.logoutButton {
-    width: 100%;
+.footerRow {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border-radius: var(--radius-md);
-    color: var(--neutral-500);
-    font-weight: 600;
-    text-decoration: none;
-    transition: all var(--transition-fast);
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 10px;
+    transition: background 0.15s ease;
+}
+
+.footerRow:hover { background-color: #EFF6FF; }
+
+.profileInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+/* Avatar */
+.avatarCircle {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563EB, #06B6D4);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 6px rgba(37, 99, 235, 0.3);
+}
+
+.profileText {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.profileName {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1F2937;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profileEmail {
+    font-size: 0.7rem;
+    color: #9CA3AF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+}
+
+/* Logout button (expanded) */
+.logoutButton {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    color: #9CA3AF;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .logoutButton:hover {
-    background-color: #fee2e2;
-    color: var(--danger);
+    background-color: #FEE2E2;
+    color: #DC2626;
 }
 
-.closed .logoutButton {
+/* Logout (collapsed) */
+.logoutButtonCollapsed {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: #9CA3AF;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
-.logoutIcon {
-    flex-shrink: 0;
+.logoutButtonCollapsed:hover {
+    background-color: #FEE2E2;
+    color: #DC2626;
 }
 
-.logoutLabel {
-    font-size: 0.95rem;
-}
-
+/* Collapse toggle */
 .collapseToggle {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
-    color: var(--neutral-400);
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
-    margin-top: 0.5rem;
+    color: #9CA3AF;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .collapseToggle:hover {
-    background-color: var(--neutral-100);
-    color: var(--neutral-600);
+    background-color: #EFF6FF;
+    color: #2563EB;
 }
