@@ -8,13 +8,13 @@ import styles from './Profile.module.css';
 
 const Profile = () => {
     const { user, setUser } = useAuth();
-    // ... (rest of the component state and handlers)
     const [profileLoading, setProfileLoading] = useState(false);
     const [passwordLoading, setPasswordLoading] = useState(false);
     const [photoLoading, setPhotoLoading] = useState(false);
     const [profilePhotoUrl, setProfilePhotoUrl] = useState(null);
     const [cropModalOpen, setCropModalOpen] = useState(false);
     const [tempPhotoUrl, setTempPhotoUrl] = useState(null);
+    const [orgName, setOrgName] = useState('');
     const fileInputRef = useRef(null);
 
     const [profileForm, setProfileForm] = useState({
@@ -56,6 +56,17 @@ const Profile = () => {
             if (profilePhotoUrl) URL.revokeObjectURL(profilePhotoUrl);
         };
     }, [user]);
+
+    useEffect(() => {
+    if (user?.active_organization_id) {
+        api.get(`/organizations/${user.active_organization_id}`)
+            .then(res => {
+                const org = res.data?.organization || res.data || res;
+                setOrgName(org.name);
+            })
+            .catch(() => {});
+    }
+}, [user]);
 
     const fetchProfilePhoto = async () => {
         try {
@@ -210,7 +221,8 @@ const Profile = () => {
             {/* ── Profile Header Section ── */}
             <div className={styles.profileHeader}>
                 <div className={styles.headerInner}>
-                    {/* Large Avatar */}
+
+                    {/* Large Avatar — overlaps card from left */}
                     <div className={styles.avatarWrap}>
                         {photoLoading ? (
                             <div className={styles.avatarFallback} style={{ background: 'var(--neutral-100)', color: 'var(--neutral-400)' }}>
@@ -268,31 +280,31 @@ const Profile = () => {
                         />
                     </div>
 
-                    {/* Personal & Org Info */}
+                    {/* Info Card */}
                     <div className={styles.headerInfo}>
-                        <div className={styles.nameSection}>
-                            <h1 className={styles.headerName}>
-                                {user?.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : user?.name || 'User'}
-                            </h1>
-                            <div className={styles.statusBadges}>
-                                <span className={styles.roleBadge}>
-                                    <ShieldCheck size={11} />
-                                    {user?.roles?.[0]?.name || user?.organization_type || 'User'}
-                                </span>
-                                <span className={styles.roleBadge} style={{ background: 'var(--success-bg)', color: 'var(--success)', borderColor: 'transparent' }}>
-                                    <span className={styles.statusDot} />
-                                    Active
-                                </span>
+                        <h1 className={styles.headerName}>
+                            {user?.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : user?.name || 'User'}
+                        </h1>
+                        <div className={styles.headerMeta}>
+                            <div className={styles.orgSection}>
+                                <Building2 size={16} className={styles.metaIcon} />
+                                <span className={styles.orgName}>
+    {localStorage.getItem('impersonated_org_name') || orgName || 'Organization'}
+</span>
                             </div>
-                        </div>
-
-                        <div className={styles.orgSection}>
-                            <Building2 size={16} className={styles.metaIcon} />
-                            <span className={styles.orgName}>
-                                {localStorage.getItem('impersonated_org_name') || user?.organization?.name || user?.active_organization?.name || 'Organization'}
-                            </span>
+                            <div className={styles.statusBadges}>
+    <span className={styles.roleText}>
+        <span className={styles.roleDot} />
+        {user?.roles?.[0]?.name || user?.organization_type || 'User'}
+    </span>
+    <span className={styles.roleBadge} style={{ background: 'var(--success-bg)', color: 'var(--success)', borderColor: 'transparent' }}>
+        <span className={styles.statusDot} />
+        Active
+    </span>
+</div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
