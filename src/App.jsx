@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 import Hospitals from './pages/Hospitals';
 import Doctors from './pages/Doctors';
 import Patients from './pages/Patients';
@@ -93,6 +94,8 @@ function App() {
             <Route element={<ProtectedRoute module="settings" requiredPermission="settings:view" />}>
               <Route path="/settings" element={<Settings />} />
             </Route>
+
+            <Route path="/profile" element={<Profile />} />
             <Route path="/permission-denied" element={<PermissionDenied />} />
           </Route>
 

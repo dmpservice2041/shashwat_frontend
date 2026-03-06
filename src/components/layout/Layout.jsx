@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
-import Header from './Header';
+import FloatingIsland from './FloatingIsland';
 import styles from './Layout.module.css';
 
 const Layout = ({ children }) => {
@@ -35,7 +36,16 @@ const Layout = ({ children }) => {
 
             <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
             <div className={`${styles.mainWrapper} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
-                <Header toggleSidebar={toggleSidebar} />
+                <FloatingIsland />
+                {!sidebarOpen && (
+                    <button
+                        className={styles.mobileToggle}
+                        onClick={toggleSidebar}
+                        aria-label="Open menu"
+                    >
+                        <Menu size={20} />
+                    </button>
+                )}
                 <main className={styles.mainContent}>
                     <div className={styles.contentInner}>
                         {children}
