@@ -2,63 +2,77 @@
 
   --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
+  /* ── Brand palette ───────────────────────────────────────
+     Primary  : #2563EB  Medical blue
+     Secondary: #06B6D4  Cyan
+     Accent   : #22C55E  Success green
+     BG       : #F8FAFC
+     Surface  : #FFFFFF
+     Border   : #E5E7EB
+     Text     : #1F2937
+  ────────────────────────────────────────────────────────── */
 
-  /* Brand palette (only these 4 colors are used for the theme) */
-  --brand-900: #09637E;
-  --brand-700: #088395;
-  --brand-300: #7AB2B2;
-  --brand-50: #EBF4F6;
+  /* Primary blue scale */
+  --primary-50:  #EFF6FF;
+  --primary-100: #DBEAFE;
+  --primary-200: #BFDBFE;
+  --primary-300: #93C5FD;
+  --primary-400: #60A5FA;
+  --primary-500: #3B82F6;
+  --primary-600: #2563EB;
+  --primary-700: #1D4ED8;
+  --primary-800: #1E40AF;
+  --primary-900: #1E3A8A;
 
-  /* Compatibility tokens used throughout the app */
-  --primary-50: var(--brand-50);
-  --primary-100: var(--brand-50);
-  --primary-200: var(--brand-300);
-  --primary-300: var(--brand-300);
-  --primary-400: var(--brand-300);
-  --primary-500: var(--brand-700);
-  --primary-600: var(--brand-900);
-  --primary-700: var(--brand-900);
-  --primary-800: var(--brand-900);
-  --primary-900: var(--brand-900);
+  /* Secondary cyan (accent use) */
+  --secondary:   #06B6D4;
+  --secondary-light: #CFFAFE;
 
-  --neutral-50: var(--brand-50);
-  --neutral-100: var(--brand-50);
-  --neutral-200: var(--brand-300);
-  --neutral-300: var(--brand-300);
-  --neutral-400: var(--brand-300);
-  --neutral-500: var(--brand-700);
-  --neutral-600: var(--brand-700);
-  --neutral-700: var(--brand-900);
-  --neutral-800: var(--brand-900);
-  --neutral-900: var(--brand-900);
+  /* Neutral grey scale (text / borders / backgrounds) */
+  --neutral-50:  #F8FAFC;
+  --neutral-100: #F1F5F9;
+  --neutral-200: #E5E7EB;
+  --neutral-300: #D1D5DB;
+  --neutral-400: #9CA3AF;
+  --neutral-500: #6B7280;
+  --neutral-600: #4B5563;
+  --neutral-700: #374151;
+  --neutral-800: #1F2937;
+  --neutral-900: #111827;
 
+  /* Semantic */
+  --success: #22C55E;
+  --success-bg: #DCFCE7;
+  --warning: #F59E0B;
+  --warning-bg: #FEF3C7;
+  --danger:  #EF4444;
+  --danger-bg: #FEE2E2;
 
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  /* Surfaces */
+  --bg-color:      #F8FAFC;
+  --surface-color: #FFFFFF;
+  --border-color:  #E5E7EB;
 
+  /* Shadows */
+  --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md:   0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-lg:   0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-glow: 0 0 16px rgba(37, 99, 235, 0.22);
 
-  --bg-color: var(--brand-50);
-  --surface-color: #ffffff;
-
-
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 15px rgba(9, 99, 126, 0.25);
-
-
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  /* Radii */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
   --radius-full: 9999px;
 
-
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transitions */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
+/* ── Reset ─────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -73,7 +87,7 @@ body {
   width: 100%;
   font-family: var(--font-base);
   background-color: var(--bg-color);
-  color: var(--neutral-900);
+  color: var(--neutral-800);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -90,10 +104,7 @@ a {
   text-decoration: none;
 }
 
-ul,
-ol {
-  list-style: none;
-}
+ul, ol { list-style: none; }
 
 button,
 input,
@@ -109,42 +120,30 @@ button {
   border: none;
 }
 
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
   color: var(--neutral-900);
 }
 
-h1 {
-  font-size: 2.25rem;
-}
-
-h2 {
-  font-size: 1.875rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
 
 
+/* ── Utility classes ───────────────────────────────────── */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: var(--shadow-lg);
 }
 
+/* gradient text: primary → cyan */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+  background: linear-gradient(135deg, var(--primary-600), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -155,7 +154,6 @@ h3 {
   align-items: center;
   justify-content: center;
 }
-
 
 *:focus-visible {
   outline: 2px solid var(--primary-500);
