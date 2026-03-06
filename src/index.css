@@ -2,77 +2,80 @@
 
   --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
-  /* ── Brand palette ───────────────────────────────────────
-     Primary  : #2563EB  Medical blue
-     Secondary: #06B6D4  Cyan
-     Accent   : #22C55E  Success green
-     BG       : #F8FAFC
-     Surface  : #FFFFFF
-     Border   : #E5E7EB
-     Text     : #1F2937
-  ────────────────────────────────────────────────────────── */
 
-  /* Primary blue scale */
-  --primary-50:  #EFF6FF;
-  --primary-100: #DBEAFE;
-  --primary-200: #BFDBFE;
-  --primary-300: #93C5FD;
-  --primary-400: #60A5FA;
-  --primary-500: #3B82F6;
-  --primary-600: #2563EB;
-  --primary-700: #1D4ED8;
-  --primary-800: #1E40AF;
-  --primary-900: #1E3A8A;
+  /* Primary Blue scale */
 
-  /* Secondary cyan (accent use) */
-  --secondary:   #06B6D4;
-  --secondary-light: #CFFAFE;
+  /* Primary Blue scale */
+  --primary-50: #EEF2FF;
+  --primary-100: #E0E7FF;
+  --primary-200: #C7D2FE;
+  --primary-300: #A5B4FC;
+  --primary-400: #818CF8;
+  --primary-500: #5B6EF5;
+  --primary-600: #4F46E5;
+  --primary-700: #4338CA;
+  --primary-800: #3730A3;
+  --primary-900: #312E81;
 
-  /* Neutral grey scale (text / borders / backgrounds) */
-  --neutral-50:  #F8FAFC;
-  --neutral-100: #F1F5F9;
-  --neutral-200: #E5E7EB;
+  /* Secondary Violet (accent use) */
+  --secondary: #7C5CFC;
+  --secondary-light: #F0EAFF;
+
+  /* Neutral scale (high-contrast text) */
+  --neutral-50: #F8F9FB;
+  --neutral-100: #F1F3F5;
+  --neutral-200: #E8EAF0;
   --neutral-300: #D1D5DB;
   --neutral-400: #9CA3AF;
-  --neutral-500: #6B7280;
-  --neutral-600: #4B5563;
-  --neutral-700: #374151;
-  --neutral-800: #1F2937;
-  --neutral-900: #111827;
+  --neutral-500: #64748B;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1E293B;
+  --neutral-900: #1A1A2E;
 
   /* Semantic */
-  --success: #22C55E;
-  --success-bg: #DCFCE7;
-  --warning: #F59E0B;
-  --warning-bg: #FEF3C7;
-  --danger:  #EF4444;
-  --danger-bg: #FEE2E2;
+  --success: #059669;
+  --success-bg: #ECFDF5;
+  --warning: #D97706;
+  --warning-bg: #FFFBEB;
+  --danger: #DC2626;
+  --danger-bg: #FEF2F2;
+  --info: #2563EB;
+  --info-bg: #EFF6FF;
+
+  /* Pastel card tints (from reference dashboard) */
+  --card-blue: #EEF2FF;
+  --card-purple: #F0EAFF;
+  --card-mint: #ECFDF5;
+  --card-peach: #FFF7ED;
 
   /* Surfaces */
-  --bg-color:      #F8FAFC;
+  --bg-color: #FFFFFF;
   --surface-color: #FFFFFF;
-  --border-color:  #E5E7EB;
+  --sidebar-bg: #F5F6FA;
+  --border-color: #E8EAF0;
 
   /* Shadows */
-  --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md:   0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
-  --shadow-lg:   0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
-  --shadow-glow: 0 0 16px rgba(37, 99, 235, 0.22);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 20px rgba(91, 110, 245, 0.15);
 
   /* Radii */
-  --radius-sm:   0.375rem;
-  --radius-md:   0.5rem;
-  --radius-lg:   0.75rem;
-  --radius-xl:   1rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
   --radius-full: 9999px;
 
   /* Transitions */
-  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
-/* ── Reset ─────────────────────────────────────────────── */
+
 *,
 *::before,
 *::after {
@@ -104,7 +107,10 @@ a {
   text-decoration: none;
 }
 
-ul, ol { list-style: none; }
+ul,
+ol {
+  list-style: none;
+}
 
 button,
 input,
@@ -120,30 +126,41 @@ button {
   border: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
   color: var(--neutral-900);
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.875rem; }
-h3 { font-size: 1.5rem; }
-
-
-/* ── Utility classes ───────────────────────────────────── */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: var(--shadow-lg);
+h1 {
+  font-size: 2.25rem;
 }
 
-/* gradient text: primary → cyan */
+h2 {
+  font-size: 1.875rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+
+
+.glass-panel {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* gradient text: primary → violet */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-600), var(--secondary));
+  background: linear-gradient(135deg, var(--primary-500), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -156,6 +173,6 @@ h3 { font-size: 1.5rem; }
 }
 
 *:focus-visible {
-  outline: 2px solid var(--primary-500);
+  outline: 2px solid var(--primary-400);
   outline-offset: 2px;
 }

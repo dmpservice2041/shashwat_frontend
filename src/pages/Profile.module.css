@@ -1,0 +1,499 @@
+/* ── Profile Page — Premium Overhaul ── */
+
+.page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Cover Banner ── */
+.coverBanner {
+    position: relative;
+    height: 200px;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background: linear-gradient(135deg, #4F46E5 0%, #7C5CFC 50%, #818CF8 100%);
+    background-size: 200% 200%;
+    animation: shimmer 8s ease infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.coverPattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+}
+
+.coverDots {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* ── Profile Header (Focused White Aesthetic) ── */
+.profileHeader {
+    background: white;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--neutral-100);
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.02),
+        0 10px 30px -10px rgba(0, 0, 0, 0.04);
+}
+
+.headerInner {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ── Large Avatar ── */
+.avatarWrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar,
+.avatarFallback {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--neutral-100);
+}
+
+.avatarFallback {
+    background: linear-gradient(135deg, var(--primary-500), var(--secondary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.avatarActions {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: flex;
+    gap: 6px;
+}
+
+.avatarBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--primary-500);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+}
+
+.avatarBtn:hover,
+.avatarBtnActive {
+    transform: scale(1.1);
+    background: var(--primary-600);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.photoDropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--neutral-100);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    padding: 0.5rem;
+    min-width: 160px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.photoDropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-lg);
+    border: none;
+    background: transparent;
+    color: var(--neutral-700);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.photoDropdownItem:hover {
+    background: var(--neutral-50);
+    color: var(--primary-600);
+}
+
+.photoDropdownItem svg {
+    opacity: 0.7;
+}
+
+.photoRemoveItem {
+    color: var(--danger);
+}
+
+.photoRemoveItem:hover {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+/* ── Header Info ── */
+.headerInfo {
+    flex: 1;
+}
+
+.nameSection {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.headerName {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--neutral-900);
+    margin: 0;
+    letter-spacing: -0.04em;
+}
+
+.statusBadges {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.orgSection {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--neutral-500);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.metaIcon {
+    color: var(--primary-400);
+    flex-shrink: 0;
+}
+
+.orgName {
+    color: var(--primary-600);
+    font-weight: 700;
+}
+
+.roleBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border: 1px solid var(--primary-100);
+}
+
+.statusDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    display: inline-block;
+    box-shadow: 0 0 0 2px var(--success-bg);
+}
+
+/* ── Section Tabs ── */
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* ── Card ── */
+.card {
+    background: white;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--neutral-100);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        0 4px 16px -2px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 8px 24px -4px rgba(0, 0, 0, 0.07);
+    border-color: var(--primary-100);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--neutral-100);
+}
+
+.cardIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cardIconPrimary {
+    background: var(--primary-50);
+    color: var(--primary-600);
+}
+
+.cardIconGreen {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.cardTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--neutral-800);
+    margin: 0;
+}
+
+.cardSubtitle {
+    font-size: 0.8rem;
+    color: var(--neutral-400);
+    font-weight: 500;
+    margin: 0;
+}
+
+.cardBody {
+    padding: 2rem;
+}
+
+/* ── Form Styles ── */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.fieldLabel {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.inputWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 0.875rem;
+    color: var(--neutral-300);
+    pointer-events: none;
+    transition: color 0.25s;
+}
+
+.input {
+    width: 100%;
+    background: var(--neutral-50);
+    border: 1.5px solid var(--neutral-200);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem 0.875rem 0.75rem 2.75rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--neutral-900);
+    transition: all 0.25s;
+}
+
+.input::placeholder {
+    color: var(--neutral-300);
+}
+
+.input:focus {
+    outline: none;
+    background: white;
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.input:focus~.inputIcon,
+.inputWrap:focus-within .inputIcon {
+    color: var(--primary-500);
+}
+
+/* ── Buttons ── */
+.cardFooter {
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--neutral-50);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btnPrimary {
+    background: var(--primary-600);
+    color: white;
+    box-shadow: 0 1px 3px rgba(79, 70, 229, 0.3);
+}
+
+.btnPrimary:hover:not(:disabled) {
+    background: var(--primary-700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btnSuccess {
+    background: var(--success);
+    color: white;
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.3);
+}
+
+.btnSuccess:hover:not(:disabled) {
+    background: #047857;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .page {
+        padding: 0 1rem 3rem;
+    }
+
+    .coverBanner {
+        height: 150px;
+        border-radius: var(--radius-xl);
+    }
+
+    .profileHeader {
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+        padding: 0 1.25rem 1.5rem;
+    }
+
+    .headerInner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .headerMeta {
+        justify-content: center;
+    }
+
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .cardBody {
+        padding: 1.25rem;
+    }
+
+    .cardHeader {
+        padding: 1rem 1.25rem;
+    }
+}

@@ -4,7 +4,8 @@ import api from '../../../services/api';
 
 const EditAdminModal = ({ isOpen, onClose, onSuccess, orgId, initialAdmin = null }) => {
     const [formData, setFormData] = useState({
-        full_name: '',
+        admin_first_name: '',
+        admin_last_name: '',
         email: '',
         phone: ''
     });
@@ -14,7 +15,8 @@ const EditAdminModal = ({ isOpen, onClose, onSuccess, orgId, initialAdmin = null
     useEffect(() => {
         if (initialAdmin) {
             setFormData({
-                full_name: `${initialAdmin.first_name || ''} ${initialAdmin.last_name || ''}`.trim(),
+                admin_first_name: initialAdmin.first_name || '',
+                admin_last_name: initialAdmin.last_name || '',
                 email: initialAdmin.email || '',
                 phone: initialAdmin.phone || ''
             });
@@ -41,7 +43,8 @@ const EditAdminModal = ({ isOpen, onClose, onSuccess, orgId, initialAdmin = null
         setLoading(true);
         try {
             const payload = {
-                full_name: formData.full_name,
+                admin_first_name: formData.admin_first_name,
+                admin_last_name: formData.admin_last_name,
                 email: formData.email,
                 phone: formData.phone
             };
@@ -79,25 +82,45 @@ const EditAdminModal = ({ isOpen, onClose, onSuccess, orgId, initialAdmin = null
                     )}
 
                     <form id="edit-admin-form" onSubmit={handleSubmit}>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                             <div>
                                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
-                                    Full Name *
+                                    First Name *
                                 </label>
                                 <div style={{ position: 'relative' }}>
                                     <User size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                     <input
                                         type="text"
-                                        name="full_name"
-                                        value={formData.full_name}
+                                        name="admin_first_name"
+                                        value={formData.admin_first_name}
                                         onChange={handleChange}
                                         required
                                         style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
-                                        placeholder="John Doe"
+                                        placeholder="Raj"
                                     />
                                 </div>
                             </div>
 
+                            <div>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
+                                    Last Name *
+                                </label>
+                                <div style={{ position: 'relative' }}>
+                                    <User size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
+                                    <input
+                                        type="text"
+                                        name="admin_last_name"
+                                        value={formData.admin_last_name}
+                                        onChange={handleChange}
+                                        required
+                                        style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
+                                        placeholder="Sharma"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
                             <div>
                                 <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
                                     Email Address *

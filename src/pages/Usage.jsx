@@ -17,17 +17,41 @@ const Usage = () => {
             if (res.success) setItems(res.data);
         } catch {
             setItems([
-                { id: 1, usageNo: 'USE-2526-0001', patient: 'Michael Smith', hospital: 'City Central Hospital', doctor: 'Dr. John Doe', date: '2025-04-11', status: 'Invoiced' },
-                { id: 2, usageNo: 'USE-2526-0002', patient: 'Emily Chen', hospital: 'Lifeline Wellness Center', doctor: 'Dr. Sarah Lee', date: '2025-04-13', status: 'Pending' },
+                {
+                    id: 1,
+                    usageNo: 'USE-2526-0001',
+                    patient: { first_name: 'Amit', last_name: 'Patel' },
+                    hospital: 'City Care Hospital',
+                    doctor: { first_name: 'Raj', last_name: 'Sharma' },
+                    date: '2025-04-11',
+                    status: 'Invoiced'
+                },
+                {
+                    id: 2,
+                    usageNo: 'USE-2526-0002',
+                    patient: { first_name: 'Sneha', last_name: 'Gupta' },
+                    hospital: 'Aarogya Wellness Center',
+                    doctor: { first_name: 'Ananya', last_name: 'Iyer' },
+                    date: '2025-04-13',
+                    status: 'Pending'
+                },
             ]);
         } finally { setLoading(false); }
     };
 
-    const filtered = items.filter(i =>
-        i.usageNo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        i.patient?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        i.hospital?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const formatName = (user) => {
+        if (!user) return 'N/A';
+        if (typeof user === 'string') return user;
+        return `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'N/A';
+    };
+
+    const filtered = items.filter(i => {
+        const patientName = formatName(i.patient);
+        const doctorName = formatName(i.doctor);
+        return i.usageNo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            i.hospital?.toLowerCase().includes(searchTerm.toLowerCase());
+    });
 
     return (
         <div className={styles.pageContainer}>
@@ -62,9 +86,9 @@ const Usage = () => {
                                     : filtered.map(i => (
                                         <tr key={i.id}>
                                             <td className={styles.fw600}>{i.usageNo}</td>
-                                            <td className={styles.primaryText}>{i.patient}</td>
+                                            <td className={styles.primaryText}>{formatName(i.patient)}</td>
                                             <td>{i.hospital}</td>
-                                            <td>{i.doctor}</td>
+                                            <td>{formatName(i.doctor)}</td>
                                             <td>{i.date}</td>
                                             <td>
                                                 <span className={`${styles.statusBadge} ${i.status === 'Invoiced' ? styles.statusActive : styles.statusInactive}`}>{i.status}</span>

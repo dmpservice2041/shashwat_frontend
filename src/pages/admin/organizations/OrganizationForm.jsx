@@ -9,8 +9,8 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
         name: '',
         org_type: 'HOSPITAL',
         address: '',
-
-        full_name: '',
+        admin_first_name: '',
+        admin_last_name: '',
         email: '',
         phone: '',
         password: '',
@@ -40,7 +40,8 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                 name: '',
                 org_type: 'HOSPITAL',
                 address: '',
-                full_name: '',
+                admin_first_name: '',
+                admin_last_name: '',
                 email: '',
                 phone: '',
                 password: '',
@@ -98,7 +99,8 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
             };
 
             if (!initialData) {
-                payload.full_name = formData.full_name;
+                payload.admin_first_name = formData.admin_first_name;
+                payload.admin_last_name = formData.admin_last_name;
                 payload.email = formData.email;
                 payload.phone = formData.phone;
                 payload.password = formData.password;
@@ -202,21 +204,38 @@ const OrganizationForm = ({ isOpen, onClose, onSubmit, initialData = null }) => 
                                     2. Primary Admin Account
                                 </h3>
 
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                                     <div>
                                         <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
-                                            Full Name *
+                                            Admin First Name *
                                         </label>
                                         <div style={{ position: 'relative' }}>
                                             <User size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
                                             <input
                                                 type="text"
-                                                name="full_name"
-                                                value={formData.full_name}
+                                                name="admin_first_name"
+                                                value={formData.admin_first_name}
                                                 onChange={handleChange}
                                                 required
                                                 style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
-                                                placeholder="John Doe"
+                                                placeholder="e.g. Raj"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, marginBottom: '6px', color: 'var(--neutral-900)' }}>
+                                            Admin Last Name *
+                                        </label>
+                                        <div style={{ position: 'relative' }}>
+                                            <User size={16} style={{ position: 'absolute', top: '10px', left: '10px', color: 'var(--neutral-400)' }} />
+                                            <input
+                                                type="text"
+                                                name="admin_last_name"
+                                                value={formData.admin_last_name}
+                                                onChange={handleChange}
+                                                required
+                                                style={{ width: '100%', padding: '8px 12px 8px 36px', boxSizing: 'border-box', border: '1px solid var(--neutral-200)', borderRadius: '6px', fontSize: '14px', background: 'var(--surface-color)', color: 'var(--neutral-900)' }}
+                                                placeholder="e.g. Sharma"
                                             />
                                         </div>
                                     </div>
