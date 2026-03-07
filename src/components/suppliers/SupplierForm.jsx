@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, User, Mail, Phone, MapPin, Building2, Landmark, Info, X, Briefcase, Globe, CreditCard } from 'lucide-react';
 import styles from '../../pages/MasterModules.module.css';
+import { showToast } from '../common/Toast';
 
 const GST_TREATMENTS = [
     { value: 'registered_business_regular', label: 'Registered Business - Regular' },
@@ -157,30 +158,31 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log('SupplierForm: handleSubmit called', formData);
 
         // 1. Mandatory validations
         if (!formData.display_name?.trim()) {
-            import('../common/Toast').then(({ showToast }) => showToast('Display Name is required'));
+            showToast('Display Name is required');
             return;
         }
         if (!formData.gst_treatment) {
-            import('../common/Toast').then(({ showToast }) => showToast('GST Treatment is required'));
+            showToast('GST Treatment is required');
             return;
         }
         if (!formData.source_of_supply) {
-            import('../common/Toast').then(({ showToast }) => showToast('Source of Supply is required'));
+            showToast('Source of Supply is required');
             return;
         }
         if (formData.pan && formData.pan.length !== 10) {
-            import('../common/Toast').then(({ showToast }) => showToast('PAN must be exactly 10 characters'));
+            showToast('PAN must be exactly 10 characters');
             return;
         }
         if (formData.gst_number && formData.gst_number.length !== 15) {
-            import('../common/Toast').then(({ showToast }) => showToast('GST Number must be exactly 15 characters'));
+            showToast('GST Number must be exactly 15 characters');
             return;
         }
         if (parseFloat(formData.opening_balance) < 0) {
-            import('../common/Toast').then(({ showToast }) => showToast('Opening balance must be a positive number'));
+            showToast('Opening balance must be a positive number');
             return;
         }
 
@@ -193,7 +195,7 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
         );
         for (const c of activeContacts) {
             if (!c.first_name?.trim() || !c.last_name?.trim()) {
-                import('../common/Toast').then(({ showToast }) => showToast('First and Last Name are required for all added contacts'));
+                showToast('First and Last Name are required for all added contacts');
                 return;
             }
         }
@@ -222,6 +224,7 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
             }
         });
 
+        console.log('SupplierForm: validation passed, submitting data', submissionData);
         onSubmit(submissionData);
     };
 

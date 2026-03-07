@@ -47,6 +47,7 @@ const Suppliers = () => {
     };
 
     const handleFormSubmit = async (formData) => {
+        console.log('Suppliers: handleFormSubmit called', formData);
         setFormLoading(true);
         try {
             if (modalMode === 'ADD') {
