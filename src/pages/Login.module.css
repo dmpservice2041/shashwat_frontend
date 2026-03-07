@@ -43,7 +43,7 @@
     width: 600px;
     height: 600px;
     background: var(--primary-50);
-    
+
     animation-delay: -5s;
 }
 
@@ -53,7 +53,7 @@
     width: 300px;
     height: 300px;
     background: var(--primary-200);
-    
+
     animation-delay: -10s;
 }
 
@@ -117,7 +117,7 @@
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    color: var(--neutral-900);
+    color: var(--primary-500);
 }
 
 .brandSubtitle {
@@ -194,7 +194,7 @@
     color: var(--neutral-900);
 }
 
-.inputField:focus{
+.inputField:focus {
     outline: none;
 }
 

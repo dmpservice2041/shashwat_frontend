@@ -86,11 +86,11 @@
     align-items: center;
     gap: 0.5rem;
     transition: all 0.2s;
-    box-shadow: 0 4px 6px -1px rgba(91, 110, 245, 0.2);
+    box-shadow: 0 4px 6px -1px rgba(37, 150, 190, 0.2);
 }
 
 .saveBtn:hover {
     background: var(--primary-700);
     transform: translateY(-1px);
-    box-shadow: 0 10px 15px -3px rgba(91, 110, 245, 0.3);
+    box-shadow: 0 10px 15px -3px rgba(37, 150, 190, 0.3);
 }

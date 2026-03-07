@@ -1,10 +1,12 @@
 .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
+    top: 1rem;
+    left: 1rem;
+    height: calc(100vh - 2rem);
     background-color: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
     transition: width var(--transition-normal);
     display: flex;
     flex-direction: column;
@@ -46,7 +48,7 @@
 }
 
 .brandHeader:hover {
-    background-color: rgba(91, 110, 245, 0.04);
+    background-color: rgba(37, 150, 190, 0.04);
 }
 
 .iconWrapper {
@@ -59,7 +61,7 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    box-shadow: 0 2px 8px rgba(91, 110, 245, 0.25);
+    box-shadow: 0 2px 8px rgba(37, 150, 190, 0.25);
 }
 
 .brandTitle {
@@ -111,7 +113,7 @@
 }
 
 .groupHeader:hover {
-    background-color: rgba(91, 110, 245, 0.06);
+    background-color: rgba(37, 150, 190, 0.06);
 }
 
 /* Icon box */
@@ -183,7 +185,7 @@
 }
 
 .standaloneLink:hover {
-    background-color: rgba(91, 110, 245, 0.06);
+    background-color: rgba(37, 150, 190, 0.06);
 }
 
 .standaloneLink.active {
@@ -302,7 +304,7 @@
 }
 
 .navLink:hover {
-    background-color: rgba(91, 110, 245, 0.06);
+    background-color: rgba(37, 150, 190, 0.06);
     color: var(--neutral-900);
 }
 
@@ -353,7 +355,7 @@
 }
 
 .footerRow:hover {
-    background-color: rgba(91, 110, 245, 0.06);
+    background-color: rgba(37, 150, 190, 0.06);
 }
 
 .profileInfo {
@@ -368,7 +370,7 @@
 
 .profileInfo:hover,
 .profileInfo.active {
-    background-color: rgba(91, 110, 245, 0.08);
+    background-color: rgba(37, 150, 190, 0.08);
 }
 
 .footerRow {
@@ -455,7 +457,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 1px 4px rgba(91, 110, 245, 0.25);
+    box-shadow: 0 1px 4px rgba(37, 150, 190, 0.25);
 }
 
 .profileText {
@@ -529,6 +531,6 @@
 }
 
 .collapseToggle:hover {
-    background-color: rgba(91, 110, 245, 0.06);
+    background-color: rgba(37, 150, 190, 0.06);
     color: var(--primary-500);
 }

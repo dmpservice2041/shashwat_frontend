@@ -16,13 +16,13 @@
 }
 
 .sidebarOpen {
-    margin-left: 260px;
-    width: calc(100% - 260px);
+    margin-left: calc(260px + 2rem);
+    width: calc(100% - (260px + 2rem));
 }
 
 .sidebarClosed {
-    margin-left: 72px;
-    width: calc(100% - 72px);
+    margin-left: calc(72px + 2rem);
+    width: calc(100% - (72px + 2rem));
 }
 
 .sidebarOverlay {
@@ -51,7 +51,7 @@
     padding: 0 2rem 2rem 2rem;
     overflow-y: auto;
     position: relative;
-    z-index: 10;
+    /* Removed z-index to avoid creating a stacking context that traps fixed modals */
 }
 
 .contentInner {
