@@ -22,9 +22,11 @@ const Suppliers = () => {
         try {
             setLoading(true);
             const res = await api.get('/suppliers');
-            if (res.success) {
+            // Handle both success property and successful response without error
+            if (res.success !== false) {
                 // Ensure res.data is an array. If it's the wrap object, use res.data.suppliers
-                setSuppliers(Array.isArray(res.data) ? res.data : (res.data.suppliers || []));
+                const suppliersList = Array.isArray(res.data) ? res.data : (res.data?.suppliers || []);
+                setSuppliers(suppliersList);
             }
         } catch (error) {
             console.error('Failed to fetch suppliers', error);
@@ -49,17 +51,23 @@ const Suppliers = () => {
         try {
             if (modalMode === 'ADD') {
                 const res = await api.post('/suppliers', formData);
-                if (res.success) {
+                // Handle both success property and successful response without error
+                if (res.success !== false) {
                     showToast('Supplier added successfully');
                     fetchSuppliers();
                     setIsModalOpen(false);
+                } else {
+                    showToast(res.message || 'Failed to save supplier');
                 }
             } else {
                 const res = await api.put(`/suppliers/${currentSupplier.id}`, formData);
-                if (res.success) {
+                // Handle both success property and successful response without error
+                if (res.success !== false) {
                     showToast('Supplier updated successfully');
                     fetchSuppliers();
                     setIsModalOpen(false);
+                } else {
+                    showToast(res.message || 'Failed to update supplier');
                 }
             }
         } catch (error) {
@@ -75,9 +83,12 @@ const Suppliers = () => {
 
         try {
             const res = await api.delete(`/suppliers/${id}`);
-            if (res.success) {
+            // Handle both success property and successful response without error
+            if (res.success !== false) {
                 showToast('Supplier deleted successfully');
                 fetchSuppliers();
+            } else {
+                showToast(res.message || 'Failed to delete supplier');
             }
         } catch (error) {
             console.error('Failed to delete supplier', error);

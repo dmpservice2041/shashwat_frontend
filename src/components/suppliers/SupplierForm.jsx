@@ -438,21 +438,21 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
                     <div className={styles.nestedList}>
                         {formData.contacts.map((contact, idx) => (
                             <div key={idx} className={styles.nestedCard}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '0.6fr 1.2fr 1.2fr', gap: '0.4rem' }}>
-                                    <select value={contact.salutation} onChange={(e) => handleNestedChange('contacts', idx, 'salutation', e.target.value)} style={{ padding: '0.35rem' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '0.6fr 1.2fr 1.2fr', gap: '0.65rem' }}>
+                                    <select value={contact.salutation} onChange={(e) => handleNestedChange('contacts', idx, 'salutation', e.target.value)}>
                                         <option value="">None</option>
                                         {SALUTATIONS.map(s => <option key={s} value={s}>{s}</option>)}
                                     </select>
-                                    <input placeholder="First Name" value={contact.first_name} onChange={(e) => handleNestedChange('contacts', idx, 'first_name', e.target.value)} style={{ padding: '0.35rem' }} />
-                                    <input placeholder="Last Name" value={contact.last_name} onChange={(e) => handleNestedChange('contacts', idx, 'last_name', e.target.value)} style={{ padding: '0.35rem' }} />
+                                    <input placeholder="First Name" value={contact.first_name} onChange={(e) => handleNestedChange('contacts', idx, 'first_name', e.target.value)} />
+                                    <input placeholder="Last Name" value={contact.last_name} onChange={(e) => handleNestedChange('contacts', idx, 'last_name', e.target.value)} />
                                 </div>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
-                                    <input type="email" placeholder="Email" value={contact.email} onChange={(e) => handleNestedChange('contacts', idx, 'email', e.target.value)} style={{ padding: '0.35rem' }} />
-                                    <input placeholder="Mobile" value={contact.mobile} onChange={(e) => handleNestedChange('contacts', idx, 'mobile', e.target.value)} style={{ padding: '0.35rem' }} />
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
+                                    <input type="email" placeholder="Email" value={contact.email} onChange={(e) => handleNestedChange('contacts', idx, 'email', e.target.value)} />
+                                    <input placeholder="Mobile" value={contact.mobile} onChange={(e) => handleNestedChange('contacts', idx, 'mobile', e.target.value)} />
                                 </div>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
-                                    <input placeholder="Dept." value={contact.department} onChange={(e) => handleNestedChange('contacts', idx, 'department', e.target.value)} style={{ padding: '0.35rem' }} />
-                                    <input placeholder="Desig." value={contact.designation} onChange={(e) => handleNestedChange('contacts', idx, 'designation', e.target.value)} style={{ padding: '0.35rem' }} />
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
+                                    <input placeholder="Department" value={contact.department} onChange={(e) => handleNestedChange('contacts', idx, 'department', e.target.value)} />
+                                    <input placeholder="Designation" value={contact.designation} onChange={(e) => handleNestedChange('contacts', idx, 'designation', e.target.value)} />
                                 </div>
                                 {formData.contacts.length > 1 && (
                                     <button type="button" onClick={() => removeItem('contacts', idx)} className={styles.removeCircleBtn}>
@@ -474,16 +474,16 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
                     <div className={styles.nestedList}>
                         {formData.bank_accounts.map((bank, idx) => (
                             <div key={idx} className={styles.nestedCard}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem' }}>
-                                    <input placeholder="Holder Name" value={bank.account_name} onChange={(e) => handleNestedChange('bank_accounts', idx, 'account_name', e.target.value)} style={{ padding: '0.35rem' }} />
-                                    <input placeholder="Acc No" value={bank.account_number} onChange={(e) => handleNestedChange('bank_accounts', idx, 'account_number', e.target.value)} style={{ padding: '0.35rem' }} />
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+                                    <input placeholder="Account Holder Name" value={bank.account_name} onChange={(e) => handleNestedChange('bank_accounts', idx, 'account_name', e.target.value)} />
+                                    <input placeholder="Account Number" value={bank.account_number} onChange={(e) => handleNestedChange('bank_accounts', idx, 'account_number', e.target.value)} />
                                 </div>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
-                                    <input placeholder="Bank" value={bank.bank_name} onChange={(e) => handleNestedChange('bank_accounts', idx, 'bank_name', e.target.value)} style={{ padding: '0.35rem' }} />
-                                    <input placeholder="IFSC" value={bank.ifsc_code} onChange={(e) => handleNestedChange('bank_accounts', idx, 'ifsc_code', e.target.value)} style={{ padding: '0.35rem' }} />
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
+                                    <input placeholder="Bank Name" value={bank.bank_name} onChange={(e) => handleNestedChange('bank_accounts', idx, 'bank_name', e.target.value)} />
+                                    <input placeholder="IFSC Code" value={bank.ifsc_code} onChange={(e) => handleNestedChange('bank_accounts', idx, 'ifsc_code', e.target.value)} />
                                 </div>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.4rem' }}>
-                                    <input placeholder="Branch" value={bank.branch} onChange={(e) => handleNestedChange('bank_accounts', idx, 'branch', e.target.value)} style={{ padding: '0.35rem' }} />
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
+                                    <input placeholder="Branch" value={bank.branch} onChange={(e) => handleNestedChange('bank_accounts', idx, 'branch', e.target.value)} />
                                 </div>
                                 {formData.bank_accounts.length > 1 && (
                                     <button type="button" onClick={() => removeItem('bank_accounts', idx)} className={styles.removeCircleBtn}>
