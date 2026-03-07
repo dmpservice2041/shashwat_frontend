@@ -87,7 +87,7 @@
 .searchInput:focus {
     outline: none;
     border-color: var(--primary-400);
-    box-shadow: 0 0 0 3px rgba(91, 110, 245, 0.1);
+    box-shadow: 0 0 0 3px rgba(37, 150, 190, 0.1);
 }
 
 
@@ -318,7 +318,7 @@
 .input:focus {
     outline: none;
     border-color: var(--primary-400);
-    box-shadow: 0 0 0 3px rgba(91, 110, 245, 0.1);
+    box-shadow: 0 0 0 3px rgba(37, 150, 190, 0.1);
 }
 
 

@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search, Edit2, Trash2, Truck } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Truck, Loader2 } from 'lucide-react';
 import api from '../services/api';
 import styles from './MasterModules.module.css';
+import SupplierModal from '../components/suppliers/SupplierModal';
+import { showToast } from '../components/common/Toast';
 
 const Suppliers = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState('ADD');
+    const [currentSupplier, setCurrentSupplier] = useState(null);
+    const [formLoading, setFormLoading] = useState(false);
 
     useEffect(() => {
         fetchSuppliers();
@@ -15,24 +21,73 @@ const Suppliers = () => {
     const fetchSuppliers = async () => {
         try {
             setLoading(true);
-            const res = await api.get('/products/suppliers');
+            const res = await api.get('/suppliers');
             if (res.success) {
-                setSuppliers(res.data);
+                // Ensure res.data is an array. If it's the wrap object, use res.data.suppliers
+                setSuppliers(Array.isArray(res.data) ? res.data : (res.data.suppliers || []));
             }
         } catch (error) {
             console.error('Failed to fetch suppliers', error);
-            setSuppliers([
-                { id: 1, name: 'Medipharma Global', code: 'SUP-001', contactPerson: 'Alice Brown', email: 'alice@medipharma.com', phone: '+91 9123456780', status: 'Active' },
-                { id: 2, name: 'Surgical Equipments Ltd', code: 'SUP-002', contactPerson: 'Bob White', email: 'sales@surgicalcorp.com', phone: '+91 9234567890', status: 'Active' },
-            ]);
+            showToast('Failed to load suppliers');
         } finally {
             setLoading(false);
         }
     };
 
+    const handleOpenModal = (mode, supplier = null) => {
+        setModalMode(mode);
+        if (mode === 'EDIT' && supplier) {
+            setCurrentSupplier(supplier);
+        } else {
+            setCurrentSupplier(null);
+        }
+        setIsModalOpen(true);
+    };
+
+    const handleFormSubmit = async (formData) => {
+        setFormLoading(true);
+        try {
+            if (modalMode === 'ADD') {
+                const res = await api.post('/suppliers', formData);
+                if (res.success) {
+                    showToast('Supplier added successfully');
+                    fetchSuppliers();
+                    setIsModalOpen(false);
+                }
+            } else {
+                const res = await api.put(`/suppliers/${currentSupplier.id}`, formData);
+                if (res.success) {
+                    showToast('Supplier updated successfully');
+                    fetchSuppliers();
+                    setIsModalOpen(false);
+                }
+            }
+        } catch (error) {
+            console.error('Failed to save supplier', error);
+            showToast(error.message || 'Failed to save supplier');
+        } finally {
+            setFormLoading(false);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this supplier?')) return;
+
+        try {
+            const res = await api.delete(`/suppliers/${id}`);
+            if (res.success) {
+                showToast('Supplier deleted successfully');
+                fetchSuppliers();
+            }
+        } catch (error) {
+            console.error('Failed to delete supplier', error);
+            showToast(error.message || 'Failed to delete supplier');
+        }
+    };
+
     const filteredSuppliers = suppliers.filter(s =>
-        s.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        s.code?.toLowerCase().includes(searchTerm.toLowerCase())
+        s.display_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        s.company_name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -47,7 +102,7 @@ const Suppliers = () => {
                         <p className={styles.pageSubtitle}>Manage wholesale medical suppliers and vendors.</p>
                     </div>
                 </div>
-                <button className="btn-primary">
+                <button className="btn-primary" onClick={() => handleOpenModal('ADD')}>
                     <Plus size={20} />
                     <span>Add Supplier</span>
                 </button>
@@ -59,7 +114,7 @@ const Suppliers = () => {
                         <Search size={18} className={styles.searchIcon} />
                         <input
                             type="text"
-                            placeholder="Search by name or code..."
+                            placeholder="Search by name or company..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className={styles.searchInput}
@@ -71,36 +126,51 @@ const Suppliers = () => {
                     <table className={styles.dataTable}>
                         <thead>
                             <tr>
-                                <th>Code</th>
-                                <th>Supplier Name</th>
-                                <th>Contact Person</th>
+                                <th>Display Name</th>
+                                <th>Company Name</th>
                                 <th>Email</th>
-                                <th>Phone</th>
+                                <th>Mobile</th>
                                 <th>Status</th>
                                 <th className={styles.textRight}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan="7" className={styles.loadingCell}>Loading data...</td></tr>
+                                <tr><td colSpan="6" className={styles.loadingCell}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                                        <Loader2 size={20} className="animate-spin" />
+                                        Loading data...
+                                    </div>
+                                </td></tr>
                             ) : filteredSuppliers.length === 0 ? (
-                                <tr><td colSpan="7" className={styles.emptyState}>No suppliers found.</td></tr>
+                                <tr><td colSpan="6" className={styles.emptyState}>No suppliers found.</td></tr>
                             ) : (
                                 filteredSuppliers.map(sup => (
                                     <tr key={sup.id}>
-                                        <td className={styles.fw600}>{sup.code}</td>
-                                        <td className={styles.primaryText}>{sup.name}</td>
-                                        <td>{sup.contactPerson}</td>
-                                        <td>{sup.email}</td>
-                                        <td>{sup.phone}</td>
+                                        <td className={styles.fw600}>{sup.display_name}</td>
+                                        <td className={styles.primaryText}>{sup.company_name}</td>
+                                        <td>{sup.email || (sup.contacts?.[0]?.email)}</td>
+                                        <td>{sup.mobile || (sup.contacts?.[0]?.mobile)}</td>
                                         <td>
-                                            <span className={`${styles.statusBadge} ${sup.status === 'Active' ? styles.statusActive : styles.statusInactive}`}>
-                                                {sup.status || 'Active'}
+                                            <span className={`${styles.statusBadge} ${sup.status === 'active' ? styles.statusActive : styles.statusInactive}`}>
+                                                {sup.status || 'active'}
                                             </span>
                                         </td>
                                         <td className={styles.actionsCell}>
-                                            <button className={styles.actionBtn} aria-label="Edit"><Edit2 size={16} /></button>
-                                            <button className={`${styles.actionBtn} ${styles.dangerBtn}`} aria-label="Delete"><Trash2 size={16} /></button>
+                                            <button
+                                                className={styles.actionBtn}
+                                                aria-label="Edit"
+                                                onClick={() => handleOpenModal('EDIT', sup)}
+                                            >
+                                                <Edit2 size={16} />
+                                            </button>
+                                            <button
+                                                className={`${styles.actionBtn} ${styles.dangerBtn}`}
+                                                aria-label="Delete"
+                                                onClick={() => handleDelete(sup.id)}
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
@@ -109,6 +179,15 @@ const Suppliers = () => {
                     </table>
                 </div>
             </div>
+
+            <SupplierModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                mode={modalMode}
+                initialData={currentSupplier}
+                onSubmit={handleFormSubmit}
+                loading={formLoading}
+            />
         </div>
     );
 };
