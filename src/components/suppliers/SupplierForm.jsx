@@ -11,6 +11,12 @@ const GST_TREATMENTS = [
     { value: 'overseas', label: 'Overseas' }
 ];
 
+// GST number field is only relevant when supplier is a registered business
+const GST_NUMBER_REQUIRED_TREATMENTS = [
+    'registered_business_regular',
+    'registered_business_composition',
+];
+
 const GST_STATE_CODES = [
     'Andaman and Nicobar Islands [35]', 'Andhra Pradesh [37]', 'Arunachal Pradesh [12]', 'Assam [18]', 'Bihar [10]',
     'Chandigarh [04]', 'Chhattisgarh [22]', 'Dadra and Nagar Haveli and Daman and Diu [26]', 'Delhi [07]', 'Goa [30]',
@@ -52,7 +58,6 @@ const TDS_CATEGORIES = [
 const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.'];
 
 const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
-    // Helper to format initial data from API structure to form structure
     const formatInitialData = (data) => {
         if (!data) return null;
         return {
@@ -115,9 +120,19 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
         bank_accounts: [{ account_name: '', account_number: '', bank_name: '', ifsc_code: '', branch: '' }]
     });
 
+    // Derived: should the GST number field be shown?
+    const showGstNumber = GST_NUMBER_REQUIRED_TREATMENTS.includes(formData.gst_treatment);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData(prev => {
+            const updated = { ...prev, [name]: value };
+            // Clear gst_number when switching to a treatment that doesn't need it
+            if (name === 'gst_treatment' && !GST_NUMBER_REQUIRED_TREATMENTS.includes(value)) {
+                updated.gst_number = '';
+            }
+            return updated;
+        });
     };
 
     const handleAddressChange = (type, field, value) => {
@@ -136,10 +151,7 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
     };
 
     const addItem = (type, emptyItem) => {
-        setFormData(prev => ({
-            ...prev,
-            [type]: [...prev[type], emptyItem]
-        }));
+        setFormData(prev => ({ ...prev, [type]: [...prev[type], emptyItem] }));
     };
 
     const removeItem = (type, index) => {
@@ -150,17 +162,14 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
     };
 
     const copyBillingToShipping = () => {
-        setFormData(prev => ({
-            ...prev,
-            shipping_address: { ...prev.billing_address }
-        }));
+        setFormData(prev => ({ ...prev, shipping_address: { ...prev.billing_address } }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('SupplierForm: handleSubmit called', formData);
 
-        // 1. Mandatory validations
+        // Validations
         if (!formData.display_name?.trim()) {
             showToast('Display Name is required');
             return;
@@ -177,8 +186,11 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
             showToast('PAN must be exactly 10 characters');
             return;
         }
-        if (formData.gst_number && formData.gst_number.length !== 15) {
-            showToast('GST Number must be exactly 15 characters');
+
+        // Validate GST number only if the field is visible
+        if (showGstNumber && formData.gst_number && formData.gst_number.length !== 15) {
+            import('../common/Toast').then(({ showToast }) => showToast('GST Number must be exactly 15 characters'));
+
             return;
         }
         if (parseFloat(formData.opening_balance) < 0) {
@@ -186,10 +198,9 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
             return;
         }
 
-        // Work on a copy to avoid mutating state directly during submission
         const submissionData = { ...formData };
 
-        // 2. Handle Contacts
+        // Contacts
         const activeContacts = submissionData.contacts.filter(c =>
             c.first_name?.trim() || c.last_name?.trim() || c.email?.trim() || c.mobile?.trim() || c.department?.trim() || c.designation?.trim()
         );
@@ -201,36 +212,38 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
         }
         submissionData.contacts = activeContacts;
 
-        // 3. Filter out empty bank accounts
+        // Bank accounts
         submissionData.bank_accounts = submissionData.bank_accounts.filter(b => b.account_name?.trim() || b.account_number?.trim());
 
-        // 4. Handle Addresses
-        if (!submissionData.billing_address?.address_line1?.trim()) {
-            delete submissionData.billing_address;
-        }
-        if (!submissionData.shipping_address?.address_line1?.trim()) {
-            delete submissionData.shipping_address;
-        }
+        // Addresses
+        if (!submissionData.billing_address?.address_line1?.trim()) delete submissionData.billing_address;
+        if (!submissionData.shipping_address?.address_line1?.trim()) delete submissionData.shipping_address;
 
-        // 5. Ensure numeric types
-        if (submissionData.opening_balance !== undefined) {
-            submissionData.opening_balance = parseFloat(submissionData.opening_balance) || 0;
-        }
+        // Numeric
+        submissionData.opening_balance = parseFloat(submissionData.opening_balance) || 0;
 
-        // 6. Clean strings
-        ['email', 'mobile', 'work_phone', 'gst_number', 'pan', 'remarks', 'company_name', 'salutation', 'first_name', 'last_name', 'source_of_supply', 'payment_terms', 'msme_number', 'tds_tax_id'].forEach(field => {
-            if (submissionData[field] === '') {
-                submissionData[field] = null;
-            }
+        // Clean empty strings to null
+        ['email', 'mobile', 'work_phone', 'gst_number', 'pan', 'remarks', 'company_name',
+         'salutation', 'first_name', 'last_name', 'source_of_supply', 'payment_terms',
+         'msme_number', 'tds_tax_id'].forEach(field => {
+            if (submissionData[field] === '') submissionData[field] = null;
         });
 
-        console.log('SupplierForm: validation passed, submitting data', submissionData);
+
+        // ── Accounting flags — always hardcoded for supplier API ──
+        // Suppliers are always vendors (payables), never customers (receivables).
+        // balance_type 'debit' means we owe them money (accounts payable / debit our expense).
+        submissionData.is_vendor      = true;
+        submissionData.is_customer    = false;
+        submissionData.balance_type   = 'debit';
+
+
         onSubmit(submissionData);
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            {/* Basic Information & Tax Row */}
+            {/* Basic Information & Tax */}
             <div className={styles.formSection}>
                 <div className={styles.sectionHeader}>
                     <h3 className={styles.sectionTitle}><Building2 size={16} /> Basic & Tax Information</h3>
@@ -298,13 +311,24 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
                             ))}
                         </select>
                     </div>
-                    <div className={styles.formGroup}>
-                        <label>GST Number</label>
-                        <input name="gst_number" value={formData.gst_number} onChange={handleChange} placeholder="15-digit GSTIN" />
-                    </div>
+
+                    {/* GST Number — only shown for registered business (regular or composition) */}
+                    {showGstNumber && (
+                        <div className={styles.formGroup}>
+                            <label>GST Number</label>
+                            <input
+                                name="gst_number"
+                                value={formData.gst_number}
+                                onChange={handleChange}
+                                placeholder="15-digit GSTIN"
+                                maxLength={15}
+                            />
+                        </div>
+                    )}
+
                     <div className={styles.formGroup}>
                         <label>PAN Card</label>
-                        <input name="pan" value={formData.pan} onChange={handleChange} placeholder="ABCDE1234F" />
+                        <input name="pan" value={formData.pan} onChange={handleChange} placeholder="ABCDE1234F" maxLength={10} />
                     </div>
                     <div className={styles.formGroup}>
                         <label>Opening Balance</label>
@@ -345,7 +369,7 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
                 </div>
             </div>
 
-            {/* Address Row - Side by Side */}
+            {/* Address Row */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                 <div className={styles.formSection} style={{ marginBottom: 0 }}>
                     <div className={styles.sectionHeader}>
@@ -429,7 +453,7 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
                 </div>
             </div>
 
-            {/* Contacts & Banks Row */}
+            {/* Contacts & Banks */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1rem' }}>
                 <div className={styles.formSection} style={{ marginBottom: 0 }}>
                     <div className={styles.sectionHeader}>
@@ -505,7 +529,7 @@ const SupplierForm = ({ initialData, onSubmit, onCancel, loading }) => {
                     {loading ? 'Processing...' : 'Save Supplier'}
                 </button>
             </div>
-        </form >
+        </form>
     );
 };
 
