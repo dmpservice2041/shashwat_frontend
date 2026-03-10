@@ -135,10 +135,10 @@
 .dataTable th {
     padding: 1rem 1.5rem;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--neutral-500);
+    color: var(--primary-600);
     background: var(--neutral-50);
     border-bottom: 1px solid var(--border-color);
 }
@@ -262,7 +262,7 @@
     background: white;
     border-radius: 12px;
     width: 100%;
-    max-width: 1000px;
+    width: 100%;
     max-height: 92vh;
     /* Use more of the screen */
     display: flex;
@@ -362,7 +362,7 @@
     gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #2596be;
+    color: var(--neutral-900);
     margin: 0;
 }
 
@@ -570,4 +570,370 @@
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
+}
+
+/* View Mode Refinement */
+.viewMode input,
+.viewMode select,
+.viewMode textarea {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-weight: 600;
+    color: var(--neutral-900);
+    cursor: default;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: none !important;
+    /* Hide dropdown arrow */
+    min-height: auto !important;
+}
+
+.viewMode .inputIcon,
+.viewMode .inputWrapper::before {
+    display: none;
+}
+
+.viewMode .formGroup {
+    gap: 0;
+}
+
+.viewMode label {
+    color: var(--neutral-400);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    margin-bottom: -2px;
+}
+
+.viewMode .formSection {
+    border-style: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--neutral-100);
+    border-radius: 0;
+}
+
+.viewMode .sectionHeader {
+    border-bottom-color: var(--neutral-200);
+    margin-bottom: 1.25rem;
+}
+
+.viewMode .nestedCard {
+    border: none;
+    background: #f8fafc;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--primary-200);
+    border-radius: 4px;
+}
+
+/* Premium Dashboard View Layout */
+.viewDashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.5rem;
+}
+
+.viewHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 12px rgba(37, 150, 190, 0.2);
+}
+
+.viewHeaderContent {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.viewHeaderIcon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.viewHeaderInfo h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.viewHeaderInfo p {
+    margin: 4px 0 0 0;
+    opacity: 0.9;
+    font-size: 0.875rem;
+}
+
+.viewBadge {
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.viewGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.viewCardPremium {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.viewCardPremium:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.viewCardHeader {
+    padding: 0.875rem 1.25rem;
+    background: #fcfcfc;
+    border-bottom: 1px solid var(--neutral-100);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--neutral-800);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.viewCardBody {
+    padding: 1.25rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.viewDataPoint {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+}
+
+.dataIcon {
+    margin-top: 2px;
+    color: var(--primary-500);
+    opacity: 0.8;
+}
+
+.dataContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.dataLabel {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--neutral-400);
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+}
+
+.dataValue {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    white-space: pre-line;
+    /* Support for multiline addresses */
+}
+
+.emptyValue {
+    color: var(--neutral-300);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.813rem;
+}
+
+.statusInactive {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    color: #fecaca !important;
+}
+
+.statusActive {
+    background: rgba(34, 197, 94, 0.15) !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+    color: #bcfeba !important;
+}
+
+.viewAddressGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.viewFullWidth {
+    grid-column: span 2;
+}
+
+.viewNestedList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.viewNestedItem {
+    padding: 1rem;
+    background: #fafafa;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-200);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.viewRemarksCard {
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    padding: 1.25rem;
+    border-radius: 12px;
+    display: flex;
+    gap: 1rem;
+}
+
+.viewRemarksIcon {
+    color: #d97706;
+}
+
+.viewRemarksContent h4 {
+    margin: 0 0 4px 0;
+    font-size: 0.875rem;
+    color: #92400e;
+}
+
+.viewRemarksContent p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--neutral-800);
+    line-height: 1.5;
+}
+
+/* Page Form Layout */
+.pageBody {
+    padding: 2rem 0;
+    max-width: 1200px;
+    margin-top: 1rem;
+}
+
+.pageForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 4rem;
+    /* Space for footer */
+}
+
+.formSection {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ... existing styles ... */
+
+/* Pagination Styles */
+.pagination {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--neutral-50);
+    border-top: 1px solid var(--border-color);
+}
+
+.paginationInfo {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+}
+
+.paginationControls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pageBtn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: var(--radius-sm);
+    color: var(--neutral-600);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.pageBtn:hover:not(:disabled) {
+    border-color: var(--primary-400);
+    color: var(--primary-600);
+    background: var(--primary-50);
+}
+
+.pageBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.activePage {
+    background: var(--primary-600);
+    color: white;
+    border-color: var(--primary-600);
+}
+
+.activePage:hover:not(:disabled) {
+    background: var(--primary-700);
+    color: white;
+}
+
+/* Page Helpers */
+.loadingWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    gap: 1rem;
+    color: var(--neutral-500);
+    font-size: 0.95rem;
+}
+
+.formContainer {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
