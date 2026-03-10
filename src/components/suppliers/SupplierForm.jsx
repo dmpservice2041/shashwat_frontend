@@ -113,6 +113,7 @@ const SupplierView = ({ data, onCancel }) => {
                             <DataPoint icon={DollarSign} label="Payment Terms" value={data.payment_terms} />
                             <DataPoint icon={Hash} label="MSME Number" value={data.msme_number} />
                             <DataPoint icon={BadgeCheck} label="DL No." value={data.dl_number} />
+                            <DataPoint icon={Hash} label="CIN No." value={data.cin_no} />
                             <DataPoint icon={Info} label="TDS Tax ID" value={data.tds_tax_id} isFullWidth />
                         </div>
                     </div>
@@ -226,6 +227,7 @@ const SupplierForm = ({ mode, initialData, onSubmit, onCancel, loading }) => {
             source_of_supply: data.source_of_supply || '',
             msme_number: data.msme_number || '',
             dl_number: data.dl_number || '',
+            cin_no: data.cin_no || '',
             payment_terms: data.payment_terms || '',
             tds_tax_id: data.tds_tax_id || '',
             currency: data.currency || 'INR',
@@ -274,6 +276,7 @@ const SupplierForm = ({ mode, initialData, onSubmit, onCancel, loading }) => {
         source_of_supply: '',
         msme_number: '',
         dl_number: '',
+        cin_no: '',
         payment_terms: '',
         tds_tax_id: '',
         opening_balance: 0,
@@ -409,7 +412,7 @@ const SupplierForm = ({ mode, initialData, onSubmit, onCancel, loading }) => {
         // Clean empty strings to null for text fields
         ['email', 'mobile', 'work_phone', 'gst_number', 'pan', 'remarks', 'company_name',
             'salutation', 'first_name', 'last_name', 'source_of_supply', 'payment_terms',
-            'msme_number', 'dl_number', 'tds_tax_id'].forEach(field => {
+            'msme_number', 'dl_number', 'cin_no', 'tds_tax_id'].forEach(field => {
                 if (submissionData[field] === '') submissionData[field] = null;
             });
 
@@ -548,6 +551,10 @@ const SupplierForm = ({ mode, initialData, onSubmit, onCancel, loading }) => {
                     <div className={styles.formGroup}>
                         <label>DL No.</label>
                         <input readOnly={isViewMode} name="dl_number" value={formData.dl_number} onChange={handleChange} placeholder="DL-123456789" />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label>CIN No.</label>
+                        <input readOnly={isViewMode} name="cin_no" value={formData.cin_no} onChange={handleChange} placeholder="U12345MH2020PTC123456" />
                     </div>
                     <div className={styles.formGroup}>
                         <label>TDS Tax ID</label>

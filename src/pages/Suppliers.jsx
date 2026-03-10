@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search, Edit2, Trash2, Truck, Loader2, Eye } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, UserSquare, Loader2, Eye } from 'lucide-react';
 import api from '../services/api';
 import styles from './MasterModules.module.css';
 import SupplierModal from '../components/suppliers/SupplierModal';
@@ -124,7 +124,7 @@ const Suppliers = () => {
             <header className={styles.pageHeader}>
                 <div className={styles.headerLeft}>
                     <div className={styles.iconWrapper}>
-                        <Truck size={24} className={styles.headerIcon} />
+                        <UserSquare size={24} className={styles.headerIcon} />
                     </div>
                     <div>
                         <h1 className={styles.pageTitle}>Suppliers</h1>
