@@ -7,6 +7,7 @@ import {
   FileText,
   Users,
   User,
+  UserSquare,
   Building2,
   Settings as SettingsIcon,
   LogOut,
@@ -50,6 +51,7 @@ const NAV_ITEMS = [
   },
   {
     group: "Accounts",
+    icon: UserSquare,
     items: [
       { path: "/suppliers", label: "Suppliers", icon: Truck, permission: "suppliers:view", module: MODULE_KEYS.SUPPLIERS },
       { path: "/products", label: "Inventory", icon: Package, permission: "products:view", module: MODULE_KEYS.PRODUCTS },
@@ -188,7 +190,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
         {visibleItems.map((item) => {
           if (item.group) {
-            const GroupIcon = item.items[0]?.icon;
+            const GroupIcon = item.icon || item.items[0]?.icon;
             const isGroupOpen = openGroup === item.group;
 
             return (
