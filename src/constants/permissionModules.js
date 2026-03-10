@@ -20,6 +20,7 @@ export const MODULE_KEYS = {
     REPORTS: 'reports',
     SETTINGS: 'settings',
     ORGANIZATIONS: 'organizations',
+    MASTERS: 'masters',
 };
 
 export const ALL_MODULES = Object.values(MODULE_KEYS);

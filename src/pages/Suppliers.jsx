@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search, Edit2, Trash2, Truck, Loader2 } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Truck, Loader2, Eye } from 'lucide-react';
 import api from '../services/api';
 import styles from './MasterModules.module.css';
 import SupplierModal from '../components/suppliers/SupplierModal';
@@ -13,6 +13,7 @@ const Suppliers = () => {
     const [modalMode, setModalMode] = useState('ADD');
     const [currentSupplier, setCurrentSupplier] = useState(null);
     const [formLoading, setFormLoading] = useState(false);
+    const [detailsLoading, setDetailsLoading] = useState(false);
 
     useEffect(() => {
         fetchSuppliers();
@@ -36,14 +37,30 @@ const Suppliers = () => {
         }
     };
 
-    const handleOpenModal = (mode, supplier = null) => {
+    const handleOpenModal = async (mode, supplier = null) => {
         setModalMode(mode);
-        if (mode === 'EDIT' && supplier) {
-            setCurrentSupplier(supplier);
+        if ((mode === 'EDIT' || mode === 'VIEW') && supplier) {
+            try {
+                setDetailsLoading(true);
+                setIsModalOpen(true); // Open modal early to show loading state if needed
+                const res = await api.get(`/suppliers/${supplier.id}`);
+                if (res.success !== false) {
+                    setCurrentSupplier(res.data);
+                } else {
+                    showToast(res.message || 'Failed to fetch supplier details');
+                    setCurrentSupplier(supplier); // Fallback to list data
+                }
+            } catch (error) {
+                console.error('Failed to fetch supplier details', error);
+                showToast('Failed to load full supplier details');
+                setCurrentSupplier(supplier); // Fallback to list data
+            } finally {
+                setDetailsLoading(false);
+            }
         } else {
             setCurrentSupplier(null);
+            setIsModalOpen(true);
         }
-        setIsModalOpen(true);
     };
 
     const handleFormSubmit = async (formData) => {
@@ -54,7 +71,7 @@ const Suppliers = () => {
                 const res = await api.post('/suppliers', formData);
                 // Handle both success property and successful response without error
                 if (res.success !== false) {
-                    showToast('Supplier added successfully');
+                    showToast('Supplier added successfully', 'success');
                     fetchSuppliers();
                     setIsModalOpen(false);
                 } else {
@@ -64,7 +81,7 @@ const Suppliers = () => {
                 const res = await api.put(`/suppliers/${currentSupplier.id}`, formData);
                 // Handle both success property and successful response without error
                 if (res.success !== false) {
-                    showToast('Supplier updated successfully');
+                    showToast('Supplier updated successfully', 'success');
                     fetchSuppliers();
                     setIsModalOpen(false);
                 } else {
@@ -86,7 +103,7 @@ const Suppliers = () => {
             const res = await api.delete(`/suppliers/${id}`);
             // Handle both success property and successful response without error
             if (res.success !== false) {
-                showToast('Supplier deleted successfully');
+                showToast('Supplier deleted successfully', 'success');
                 fetchSuppliers();
             } else {
                 showToast(res.message || 'Failed to delete supplier');
@@ -138,37 +155,40 @@ const Suppliers = () => {
                     <table className={styles.dataTable}>
                         <thead>
                             <tr>
-                                <th>Display Name</th>
+                                <th>Name</th>
                                 <th>Company Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
-                                <th>Status</th>
                                 <th className={styles.textRight}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan="6" className={styles.loadingCell}>
+                                <tr><td colSpan="5" className={styles.loadingCell}>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                                         <Loader2 size={20} className="animate-spin" />
                                         Loading data...
                                     </div>
                                 </td></tr>
                             ) : filteredSuppliers.length === 0 ? (
-                                <tr><td colSpan="6" className={styles.emptyState}>No suppliers found.</td></tr>
+                                <tr><td colSpan="5" className={styles.emptyState}>No suppliers found.</td></tr>
                             ) : (
                                 filteredSuppliers.map(sup => (
                                     <tr key={sup.id}>
-                                        <td className={styles.fw600}>{sup.display_name}</td>
-                                        <td className={styles.primaryText}>{sup.company_name}</td>
+                                        <td className={styles.fw600}>
+                                            {`${sup.salutation || ''} ${sup.first_name || ''} ${sup.last_name || ''}`.trim() || sup.display_name}
+                                        </td>
+                                        <td>{sup.company_name}</td>
                                         <td>{sup.email || (sup.contacts?.[0]?.email)}</td>
                                         <td>{sup.mobile || (sup.contacts?.[0]?.mobile)}</td>
-                                        <td>
-                                            <span className={`${styles.statusBadge} ${sup.status === 'active' ? styles.statusActive : styles.statusInactive}`}>
-                                                {sup.status || 'active'}
-                                            </span>
-                                        </td>
                                         <td className={styles.actionsCell}>
+                                            <button
+                                                className={styles.actionBtn}
+                                                aria-label="View"
+                                                onClick={() => handleOpenModal('VIEW', sup)}
+                                            >
+                                                <Eye size={16} />
+                                            </button>
                                             <button
                                                 className={styles.actionBtn}
                                                 aria-label="Edit"
@@ -199,6 +219,7 @@ const Suppliers = () => {
                 initialData={currentSupplier}
                 onSubmit={handleFormSubmit}
                 loading={formLoading}
+                detailsLoading={detailsLoading}
             />
         </div>
     );

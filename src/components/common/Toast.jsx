@@ -32,10 +32,9 @@ const Toast = () => {
     return (
         <div style={{
             position: 'fixed',
-            bottom: '24px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 9999,
+            top: '24px',
+            right: '24px',
+            zIndex: 100001,
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
@@ -47,7 +46,7 @@ const Toast = () => {
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             minWidth: '320px',
             maxWidth: '500px',
-            animation: 'slideUp 0.3s ease-out'
+            animation: 'slideDown 0.3s ease-out'
         }}>
             <Icon size={20} style={{ color, flexShrink: 0 }} />
             <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--neutral-900)', flex: 1 }}>
@@ -60,9 +59,9 @@ const Toast = () => {
                 <X size={16} />
             </button>
             <style>{`
-                @keyframes slideUp {
-                    from { transform: translate(-50%, 20px); opacity: 0; }
-                    to { transform: translate(-50%, 0); opacity: 1; }
+                @keyframes slideDown {
+                    from { transform: translateY(-20px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
                 }
             `}</style>
         </div>

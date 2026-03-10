@@ -8,7 +8,7 @@ import Hospitals from './pages/Hospitals';
 import Doctors from './pages/Doctors';
 import Patients from './pages/Patients';
 import Suppliers from './pages/Suppliers';
-import Products from './pages/Products';
+import ProductsPage from './pages/inventory/products/ProductsPage';
 import Purchase from './pages/Purchase';
 import Quotation from './pages/Quotation';
 import Challan from './pages/Challan';
@@ -24,6 +24,17 @@ import OrganizationDetails from './pages/admin/organizations/OrganizationDetails
 import OrganizationModuleSettings from './pages/admin/organizations/OrganizationModuleSettings';
 import PermissionDenied from './pages/PermissionDenied';
 import Toast from './components/common/Toast';
+
+// Masters
+import MastersLandingPage from './pages/masters/MastersLandingPage';
+import ManufacturersPage from './pages/masters/ManufacturersPage';
+import DepartmentsPage from './pages/masters/DepartmentsPage';
+import CategoriesPage from './pages/masters/CategoriesPage';
+import SubCategoriesPage from './pages/masters/SubCategoriesPage';
+import MaterialTypesPage from './pages/masters/MaterialTypesPage';
+import UnitsPage from './pages/masters/UnitsPage';
+import TaxCodesPage from './pages/masters/TaxCodesPage';
+import WarehousesPage from './pages/masters/WarehousesPage';
 
 function App() {
   return (
@@ -57,10 +68,23 @@ function App() {
               <Route path="/suppliers" element={<Suppliers />} />
             </Route>
             <Route element={<ProtectedRoute module="products" requiredPermission="products:view" />}>
-              <Route path="/products" element={<Products />} />
+              <Route path="/products" element={<ProductsPage />} />
             </Route>
             <Route element={<ProtectedRoute module="purchases" requiredPermission="purchases:view" />}>
               <Route path="/purchase" element={<Purchase />} />
+            </Route>
+
+            {/* Masters */}
+            <Route element={<ProtectedRoute module="masters" requiredPermission="masters:view" />}>
+              <Route path="/masters" element={<MastersLandingPage />} />
+              <Route path="/masters/manufacturers" element={<ManufacturersPage />} />
+              <Route path="/masters/departments" element={<DepartmentsPage />} />
+              <Route path="/masters/categories" element={<CategoriesPage />} />
+              <Route path="/masters/sub-categories" element={<SubCategoriesPage />} />
+              <Route path="/masters/material-types" element={<MaterialTypesPage />} />
+              <Route path="/masters/units" element={<UnitsPage />} />
+              <Route path="/masters/tax-codes" element={<TaxCodesPage />} />
+              <Route path="/masters/warehouses" element={<WarehousesPage />} />
             </Route>
 
             {/* Operations */}

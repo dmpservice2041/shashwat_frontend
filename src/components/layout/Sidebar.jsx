@@ -21,6 +21,14 @@ import {
   ClipboardList,
   Gauge,
   ChevronDown,
+  Database,
+  Factory,
+  Tags,
+  Columns,
+  Layers,
+  Scale,
+  Receipt,
+  Warehouse,
 } from "lucide-react";
 
 import { useAuth } from "../../context/AuthContext";
@@ -44,13 +52,14 @@ const NAV_ITEMS = [
     group: "Accounts",
     items: [
       { path: "/suppliers", label: "Suppliers", icon: Truck, permission: "suppliers:view", module: MODULE_KEYS.SUPPLIERS },
-      { path: "/products", label: "Products", icon: Package, permission: "products:view", module: MODULE_KEYS.PRODUCTS },
+      { path: "/products", label: "Inventory", icon: Package, permission: "products:view", module: MODULE_KEYS.PRODUCTS },
       { path: "/purchase", label: "Purchase", icon: ShoppingCart, permission: "purchases:view", module: MODULE_KEYS.PURCHASE },
       { path: "/quotation", label: "Quotations", icon: FileText, permission: "quotations:view", module: MODULE_KEYS.QUOTATIONS },
       { path: "/challan", label: "Challan", icon: ClipboardList, permission: "challans:view", module: MODULE_KEYS.CHALLANS },
       { path: "/usage", label: "Usage", icon: Gauge, permission: "usages:view", module: MODULE_KEYS.USAGE },
       { path: "/invoice", label: "Invoice", icon: FileText, permission: "invoices:view", module: MODULE_KEYS.INVOICES },
-      { path: "/payment", label: "Payment", icon: CreditCard, permission: "payments:view", module: MODULE_KEYS.PAYMENTS }
+      { path: "/payment", label: "Payment", icon: CreditCard, permission: "payments:view", module: MODULE_KEYS.PAYMENTS },
+      { path: "/masters", label: "Masters", icon: Database, permission: "masters:view", module: MODULE_KEYS.MASTERS }
     ]
   },
   {
@@ -146,7 +155,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       const filteredItems = item.items.filter(subItem => {
         if (subItem.adminOnly) return user?.organization_type === 'ADMIN';
 
-        if (!enabledModules.includes(subItem.module)) return false;
+        if (subItem.module && !enabledModules.includes(subItem.module)) return false;
         if (subItem.permission && !hasPermission(userPermissions, subItem.permission)) return false;
         return true;
       });
@@ -262,14 +271,18 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               {profilePhotoUrl ? (
                 <img src={profilePhotoUrl} alt="Me" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
               ) : (
-                user?.name
-                  ? user.name.charAt(0).toUpperCase()
-                  : user?.email?.charAt(0).toUpperCase() ?? "U"
+                user?.first_name
+                  ? user.first_name.charAt(0).toUpperCase()
+                  : user?.name
+                    ? user.name.charAt(0).toUpperCase()
+                    : user?.email?.charAt(0).toUpperCase() ?? "U"
               )}
             </div>
             {isOpen && (
               <div className={styles.profileText}>
-                <span className={styles.profileName}>{user?.name ?? "User"}</span>
+                <span className={styles.profileName}>
+                  {user?.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : user?.name || "User"}
+                </span>
                 <span className={styles.profileEmail}>{user?.email ?? ""}</span>
               </div>
             )}
