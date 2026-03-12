@@ -48,6 +48,7 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
         items: [
             {
                 product_id: '',
+                serial_no: '',
                 batch_no: '',
                 expire_date: '',
                 quantity: 1,
@@ -100,6 +101,7 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
 
                 return {
                     product_id: item.product_id,
+                    serial_no: item.serial_no || '',
                     batch_no: item.batch_no || '',
                     expire_date: item.expire_date ? new Date(item.expire_date).toISOString().split('T')[0] : '',
                     quantity: qty,
@@ -245,20 +247,49 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
         }
     };
 
+    const handleProductSearch = async (term) => {
+        try {
+            const res = await api.get('/products', { params: { search: term } });
+            if (res.success !== false) {
+                const list = Array.isArray(res.data) ? res.data : (res.data?.products || []);
+                return list.map(p => ({
+                    value: p.id,
+                    label: p.product_name || p.name || p.product_code || 'Unnamed product'
+                }));
+            }
+            return [];
+        } catch (error) {
+            console.error('Product search failed', error);
+            return [];
+        }
+    };
+
     const handleItemChange = (index, field, value) => {
         const newItems = [...formData.items];
         const item = { ...newItems[index], [field]: value };
 
         if (field === 'product_id') {
+            item.serial_no = '';
+            item.batch_no = '';
             const prod = products.find(p => p.id === value);
             if (prod) {
                 item.purchase_rate = prod.purchase_rate || 0;
                 item.gst_tax_id = prod.gst_tax_id || '';
-                const tax = taxCodes.find(t => t.id === prod.gst_tax_id);
+                const tax = taxCodes.find(t => t.id === item.gst_tax_id || prod.gst_tax_id);
                 if (tax) {
                     item.gst_percent = parseFloat(tax.percentage) || parseFloat(tax.gst_percentage) || 0;
+                } else {
+                    item.gst_percent = 0;
                 }
+            } else {
+                item.purchase_rate = 0;
+                item.gst_tax_id = '';
+                item.gst_percent = 0;
             }
+        }
+
+        if (field === 'serial_no' && !value) {
+            item.batch_no = '';
         }
 
         if (field === 'gst_tax_id') {
@@ -282,6 +313,7 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
                 ...prev.items,
                 {
                     product_id: '',
+                    serial_no: '',
                     batch_no: '',
                     expire_date: '',
                     quantity: 1,
@@ -315,7 +347,19 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
         if (!formData.supplier_id) { showToast('Supplier is required', 'error'); return; }
         if (!formData.warehouse_id) { showToast('Warehouse is required', 'error'); return; }
         if (!formData.purchase_no) { showToast('Bill No is required', 'error'); return; }
-        if (formData.items.some(i => !i.product_id)) { showToast('All items must have a product selected', 'error'); return; }
+
+        const invalidItem = formData.items.find(i => {
+            if (!i.product_id) return true;
+            if (!i.serial_no) return true;
+            if (!i.batch_no) return true;
+            if (i.gst_tax_id && (i.discount_value === '' || i.discount_value === null || isNaN(parseFloat(i.discount_value)))) return true;
+            return false;
+        });
+
+        if (invalidItem) {
+            showToast('Each item must have product, serial number, batch, and discount (if tax selected)', 'error');
+            return;
+        }
 
         try {
             setSubmitting(true);
@@ -458,20 +502,35 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
                                     <label>Product *</label>
                                     <div className={styles.inputWrapper}>
                                         <Package className={styles.fieldIcon} size={16} />
-                                        <select
+                                        <AsyncSearchableSelect
+                                            name="product_id"
                                             value={item.product_id}
                                             onChange={(e) => handleItemChange(index, 'product_id', e.target.value)}
-                                            className={`${styles.inputField} ${styles.selectField}`}
+                                            onSearch={handleProductSearch}
+                                            placeholder="Search product..."
+                                            initialOptions={products.map(p => ({ value: p.id, label: p.product_name || p.name || p.product_code }))}
                                             required
-                                        >
-                                            <option value="">Select Product</option>
-                                            {products.map(p => <option key={p.id} value={p.id}>{p.product_name}</option>)}
-                                        </select>
+                                        />
                                     </div>
                                 </div>
 
                                 <div className={styles.formGroup}>
-                                    <label>Batch No</label>
+                                    <label>Serial Number <span style={{ color: '#ef4444' }}>*</span></label>
+                                    <div className={styles.inputWrapper}>
+                                        <Hash className={styles.fieldIcon} size={16} />
+                                        <input
+                                            type="text"
+                                            value={item.serial_no}
+                                            onChange={(e) => handleItemChange(index, 'serial_no', e.target.value)}
+                                            className={styles.inputField}
+                                            placeholder={item.product_id ? 'Serial Number' : 'Select product first'}
+                                            required={!!item.product_id}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className={styles.formGroup}>
+                                    <label>Batch No <span style={{ color: '#ef4444' }}>*</span></label>
                                     <div className={styles.inputWrapper}>
                                         <Hash className={styles.fieldIcon} size={16} />
                                         <input
@@ -479,7 +538,8 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
                                             value={item.batch_no}
                                             onChange={(e) => handleItemChange(index, 'batch_no', e.target.value)}
                                             className={styles.inputField}
-                                            placeholder="Batch"
+                                            placeholder={item.serial_no ? 'Batch' : 'Enter serial first'}
+                                            required={!!item.serial_no}
                                         />
                                     </div>
                                 </div>
@@ -530,6 +590,24 @@ const PurchaseForm = ({ mode = 'ADD', initialData = null, onClose = null }) => {
                                         </select>
                                     </div>
                                 </div>
+
+                                {item.gst_tax_id && (
+                                    <div className={styles.formGroup}>
+                                        <label>Discount (after tax) *</label>
+                                        <div className={styles.inputWrapper}>
+                                            <BadgePercent className={styles.fieldIcon} size={16} />
+                                            <input
+                                                type="number"
+                                                value={item.discount_value}
+                                                onChange={(e) => handleItemChange(index, 'discount_value', e.target.value)}
+                                                step="0.01"
+                                                min="0"
+                                                className={styles.inputField}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className={styles.formGroup}>
                                     <label>Total</label>

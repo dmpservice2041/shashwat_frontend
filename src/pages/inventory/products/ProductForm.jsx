@@ -127,22 +127,64 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        // Only product_name is compulsory
+        // Required product fields
         if (!formData.product_name) {
             showToast("Product Name is required", 'error');
             return;
         }
 
+        const requiredSelects = [
+            { key: 'manufacturer_id', label: 'Manufacturer' },
+            { key: 'department_id', label: 'Department' },
+            { key: 'category_id', label: 'Category' },
+            { key: 'sub_category_id', label: 'Sub Category' },
+            { key: 'material_type_id', label: 'Material Type' },
+            { key: 'unit_id', label: 'Stock Unit' },
+            { key: 'warehouse_id', label: 'Warehouse' }
+        ];
+
+        const missingField = requiredSelects.find(item => !formData[item.key]);
+        if (missingField) {
+            showToast(`${missingField.label} is required`, 'error');
+            return;
+        }
+
+        const convertEmptyToNull = (value) => (value === '' ? null : value);
+        const sanitizeId = (value) => {
+            if (value === '' || value === undefined || value === null) return null;
+            return value;
+        };
+
         const submissionData = {
             ...formData,
+            manufacturer_id: sanitizeId(formData.manufacturer_id),
+            department_id: sanitizeId(formData.department_id),
+            category_id: sanitizeId(formData.category_id),
+            sub_category_id: sanitizeId(formData.sub_category_id),
+            material_type_id: sanitizeId(formData.material_type_id),
+            unit_id: sanitizeId(formData.unit_id),
+            warehouse_id: sanitizeId(formData.warehouse_id),
+            gst_tax_id: sanitizeId(formData.gst_tax_id),
             quantity: formData.quantity ? Number(formData.quantity) : 0,
             min_quantity: formData.min_quantity ? Number(formData.min_quantity) : 0,
             mrp: formData.mrp ? Number(formData.mrp) : 0,
             purchase_rate: formData.purchase_rate ? Number(formData.purchase_rate) : 0,
-            sales_rate: formData.sales_rate ? Number(formData.sales_rate) : 0
+            sales_rate: formData.sales_rate ? Number(formData.sales_rate) : 0,
+            batch_no: convertEmptyToNull(formData.batch_no),
+            serial_no: convertEmptyToNull(formData.serial_no),
+            expire_date: convertEmptyToNull(formData.expire_date),
+            description: convertEmptyToNull(formData.description)
         };
 
-        onSubmit(submissionData);
+        const cleanedSubmissionData = Object.entries(submissionData).reduce((acc, [key, value]) => {
+            if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
+                return acc;
+            }
+            acc[key] = value;
+            return acc;
+        }, {});
+
+        onSubmit(cleanedSubmissionData);
     };
 
     if (mastersLoading) {
@@ -207,7 +249,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                             </div>
                         </div>
                         <div className={styles.formGroup}>
-                            <label>Manufacturer / Brand</label>
+                            <label>Manufacturer / Brand <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="manufacturer_id"
                                 value={formData.manufacturer_id}
@@ -234,7 +276,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                     </div>
                     <div className={styles.formGrid}>
                         <div className={styles.formGroup}>
-                            <label>Department</label>
+                            <label>Department <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="department_id"
                                 value={formData.department_id}
@@ -249,7 +291,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                             />
                         </div>
                         <div className={styles.formGroup}>
-                            <label>Category</label>
+                            <label>Category <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="category_id"
                                 value={formData.category_id}
@@ -264,7 +306,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                             />
                         </div>
                         <div className={styles.formGroup}>
-                            <label>Sub Category</label>
+                            <label>Sub Category <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="sub_category_id"
                                 value={formData.sub_category_id}
@@ -279,7 +321,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                             />
                         </div>
                         <div className={styles.formGroup}>
-                            <label>Material Type</label>
+                            <label>Material Type <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="material_type_id"
                                 value={formData.material_type_id}
@@ -294,7 +336,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                             />
                         </div>
                         <div className={styles.formGroup}>
-                            <label>Stock Unit</label>
+                            <label>Stock Unit <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="unit_id"
                                 value={formData.unit_id}
@@ -309,7 +351,7 @@ const ProductForm = ({ initialData, onSubmit, loading, mode = 'ADD' }) => {
                             />
                         </div>
                         <div className={styles.formGroup}>
-                            <label>Assigned Warehouse</label>
+                            <label>Assigned Warehouse <span style={{ color: '#ef4444' }}>*</span></label>
                             <SearchableSelect
                                 name="warehouse_id"
                                 value={formData.warehouse_id}
