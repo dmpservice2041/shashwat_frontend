@@ -9,7 +9,8 @@ import Doctors from './pages/Doctors';
 import Patients from './pages/Patients';
 import Suppliers from './pages/Suppliers';
 import ProductsPage from './pages/inventory/products/ProductsPage';
-import Purchase from './pages/Purchase';
+import PurchasesPage from './pages/inventory/purchases/PurchasesPage';
+import PurchaseDetailsPage from './pages/inventory/purchases/PurchaseDetailsPage';
 import Quotation from './pages/Quotation';
 import Challan from './pages/Challan';
 import Usage from './pages/Usage';
@@ -71,7 +72,8 @@ function App() {
               <Route path="/products" element={<ProductsPage />} />
             </Route>
             <Route element={<ProtectedRoute module="purchases" requiredPermission="purchases:view" />}>
-              <Route path="/purchase" element={<Purchase />} />
+              <Route path="/purchase" element={<PurchasesPage />} />
+              <Route path="/purchase/view/:id" element={<PurchaseDetailsPage />} />
             </Route>
 
             {/* Masters */}
